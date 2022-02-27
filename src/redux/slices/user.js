@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import { map, filter } from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
 // utils
@@ -209,7 +210,7 @@ export function getUserList() {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('/api/user/manage-users');
+      const response = await axios.list('api/employees');
       dispatch(slice.actions.getUserListSuccess(response.data.users));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

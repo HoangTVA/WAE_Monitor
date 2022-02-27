@@ -40,7 +40,7 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../../components/_d
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
+  { id: 'store', label: 'Store', alignRight: false },
   { id: 'role', label: 'Role', alignRight: false },
   { id: 'isVerified', label: 'Verified', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
@@ -186,7 +186,7 @@ export default function UserList() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                    const { id, name, dob, status, store, email, isVerified } = row;
                     const isItemSelected = selected.indexOf(name) !== -1;
 
                     return (
@@ -201,16 +201,9 @@ export default function UserList() {
                         <TableCell padding="checkbox">
                           <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
                         </TableCell>
-                        <TableCell component="th" scope="row" padding="none">
-                          <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={name} src={avatarUrl} />
-                            <Typography variant="subtitle2" noWrap>
-                              {name}
-                            </Typography>
-                          </Stack>
-                        </TableCell>
-                        <TableCell align="left">{company}</TableCell>
-                        <TableCell align="left">{role}</TableCell>
+                        <TableCell align="left">{store}</TableCell>
+                        <TableCell align="left">{dob}</TableCell>
+                        <TableCell align="left">{email}</TableCell>
                         <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
                         <TableCell align="left">
                           <Label

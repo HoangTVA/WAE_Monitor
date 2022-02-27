@@ -4,6 +4,7 @@ import { sample } from 'lodash';
 import { mockImgCover, mockImgFeed, mockImgAvatar } from '../utils/mockImages';
 //
 import mock from './mock';
+import axios from '../utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -93,36 +94,10 @@ const NAME = [
   'Deanna Gerlach'
 ];
 
-mock.onGet('/api/user/manage-users').reply(() => {
+mock.onGet('/api/employees').reply(() => {
   const users = [...Array(24)].map((_, index) => {
     const setIndex = index + 1;
-    return {
-      id: createId(setIndex),
-      avatarUrl: mockImgAvatar(setIndex),
-      name: NAME[index],
-      email: faker.internet.email(),
-      phoneNumber: faker.phone.phoneNumber(),
-      address: faker.address.streetAddress(),
-      country: faker.address.country(),
-      state: faker.address.state(),
-      city: faker.address.city(),
-      zipCode: faker.address.zipCodeByState(),
-      company: faker.company.companyName(),
-      isVerified: faker.datatype.boolean(),
-      status: sample(['active', 'banned']),
-      role: sample([
-        'Leader',
-        'Hr Manager',
-        'UI Designer',
-        'UX Designer',
-        'UI/UX Designer',
-        'Project Manager',
-        'Backend Developer',
-        'Full Stack Designer',
-        'Front End Developer',
-        'Full Stack Developer'
-      ])
-    };
+    return axios.get('/api/employees');
   });
 
   return [200, { users }];

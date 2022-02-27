@@ -154,7 +154,7 @@ export default function UserNewForm({ isEdit, currentUser }) {
                   label={
                     <>
                       <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                        Banned
+                        Status
                       </Typography>
                       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                         Apply disable account
@@ -165,7 +165,7 @@ export default function UserNewForm({ isEdit, currentUser }) {
                 />
               )}
 
-              <FormControlLabel
+              {/* <FormControlLabel
                 labelPlacement="start"
                 control={<Switch {...getFieldProps('isVerified')} checked={values.isVerified} />}
                 label={
@@ -179,7 +179,7 @@ export default function UserNewForm({ isEdit, currentUser }) {
                   </>
                 }
                 sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
-              />
+              /> */}
             </Card>
           </Grid>
 

@@ -166,24 +166,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       <NavSection navConfig={sidebarConfig} isShow={!isCollapse} />
 
       <Box sx={{ flexGrow: 1 }} />
-
-      {!isCollapse && (
-        <Box sx={{ px: 2.5, pb: 3, mt: 10, width: 1 }}>
-          <DocStyle>
-            <DocIcon sx={{ width: 36, height: 36, mb: 2 }} />
-            <Typography gutterBottom variant="subtitle1" sx={{ color: 'grey.800' }}>
-              Hi, {user?.displayName}
-            </Typography>
-            <Typography variant="body2" sx={{ mb: 2, color: 'grey.600' }}>
-              Need help?
-              <br /> Please check our docs
-            </Typography>
-            <Button fullWidth href={PATH_DOCS} target="_blank" variant="contained">
-              Documentation
-            </Button>
-          </DocStyle>
-        </Box>
-      )}
     </Scrollbar>
   );
 
