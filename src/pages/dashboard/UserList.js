@@ -40,9 +40,11 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../../components/_d
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
+  { id: 'email', label: 'Email', alignRight: false },
   { id: 'store', label: 'Store', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
+  { id: 'dob', label: 'Day Of Birth', alignRight: false },
+  { id: 'phone', label: 'Phone', alignRight: false },
+  { id: 'createdDate', label: 'Created Date', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' }
 ];
@@ -186,7 +188,7 @@ export default function UserList() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, dob, status, store, email, isVerified } = row;
+                    const { id, name, dob, status, store, email, phone, createdDate } = row;
                     const isItemSelected = selected.indexOf(name) !== -1;
 
                     return (
@@ -201,10 +203,12 @@ export default function UserList() {
                         <TableCell padding="checkbox">
                           <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
                         </TableCell>
+                        <TableCell align="left">{id}</TableCell>
                         <TableCell align="left">{store}</TableCell>
                         <TableCell align="left">{dob}</TableCell>
                         <TableCell align="left">{email}</TableCell>
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
+                        <TableCell align="left">{phone}</TableCell>
+                        <TableCell align="left">{createdDate}</TableCell>
                         <TableCell align="left">
                           <Label
                             variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
