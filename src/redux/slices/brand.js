@@ -38,6 +38,23 @@ const slice = createSlice({
   }
 });
 
+// Generate brand
+const newBrandList = (res) => {
+  console.log(res);
+  const brandList = res.data.map((data) => {
+    const brand = {
+      brandId: data.id,
+      brandName: data.brandName,
+      brandPhone: data.brandPhone,
+      brandEmail: data.brandEmail,
+      brandWebsite: data.brandWebsite,
+      brandAddress: data.brandAddress
+    };
+    console.log(brand);
+    return brand;
+  });
+};
+
 // Reducer
 export default slice.reducer;
 
@@ -51,6 +68,7 @@ export function getBrandList() {
     dispatch(slice.actions.startLoading());
     try {
       const response = await axios.get('/api/brands');
+      newBrandList(response);
       dispatch(slice.actions.getBrandListSuccess(response.data.brand));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

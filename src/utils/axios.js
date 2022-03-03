@@ -3,14 +3,17 @@ import axios from 'axios';
 // ----------------------------------------------------------------------
 axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://waemonitor.azurewebsites.net';
 
+const token = localStorage.getItem('accessToken');
+
 const axiosInstance = axios.create();
 
-// axios.defaults.headers = {
-//   Authorization: token,
-//   'Access-Control-Allow-Origin': '*',
-//   'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-//   'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
-// };
+axios.defaults.headers = {
+  // eslint-disable-next-line prettier/prettier
+  'Authorization': token,
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+  'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+};
 
 // const responseBody = (response) => response.data;
 // const requests = {
