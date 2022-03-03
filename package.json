@@ -74,7 +74,7 @@
     "draft-js": "^0.11.7",
     "emoji-mart": "^3.0.0",
     "faker": "^5.5.3",
-    "firebase": "^8.7.1",
+    "firebase": "^8.10.1",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
     "highlight.js": "^11.1.0",

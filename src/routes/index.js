@@ -109,6 +109,16 @@ export default function Router() {
           ]
         },
         {
+          path: 'brand',
+          children: [
+            { path: '/', element: <Navigate to="/dashboard/brand/detail" replace /> },
+            // { path: 'detail', element: <BrandDetail /> },
+            { path: 'list', element: <BrandList /> }
+            // { path: 'new', element: <BrandCreate /> },
+            // { path: '/:name/edit', element: <BrandCreate /> },
+          ]
+        },
+        {
           path: 'blog',
           children: [
             { path: '/', element: <Navigate to="/dashboard/blog/posts" replace /> },
@@ -251,6 +261,9 @@ const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
 const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
 const Calendar = Loadable(lazy(() => import('../pages/dashboard/Calendar')));
 const Kanban = Loadable(lazy(() => import('../pages/dashboard/Kanban')));
+// const BrandDetail = Loadable(lazy(() => import('../pages/dashboard/BrandDetail')));
+const BrandList = Loadable(lazy(() => import('../pages/dashboard/BrandList')));
+// const BrandCreate = Loadable(lazy(() => import('../pages/dashboard/BrandCreate')));
 // Main
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));
 const About = Loadable(lazy(() => import('../pages/About')));

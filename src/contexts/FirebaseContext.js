@@ -7,7 +7,7 @@ import { firebaseConfig } from '../config';
 
 // ----------------------------------------------------------------------
 
-const ADMIN_EMAILS = ['demo@minimals.cc'];
+const ADMIN_EMAILS = ['hoangtvase150780@gmail.com'];
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);

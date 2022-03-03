@@ -59,6 +59,14 @@ export const PATH_DASHBOARD = {
     editById: path(ROOTS_DASHBOARD, '/user/ada-lindgren/edit'),
     account: path(ROOTS_DASHBOARD, '/user/account')
   },
+  brand: {
+    root: path(ROOTS_DASHBOARD, '/brand'),
+    profile: path(ROOTS_DASHBOARD, '/brand/profile'),
+    cards: path(ROOTS_DASHBOARD, '/brand/cards'),
+    list: path(ROOTS_DASHBOARD, '/brand/list'),
+    newBrand: path(ROOTS_DASHBOARD, '/brand/new'),
+    editById: path(ROOTS_DASHBOARD, '/brand/ada-lindgren/edit')
+  },
   eCommerce: {
     root: path(ROOTS_DASHBOARD, '/e-commerce'),
     shop: path(ROOTS_DASHBOARD, '/e-commerce/shop'),

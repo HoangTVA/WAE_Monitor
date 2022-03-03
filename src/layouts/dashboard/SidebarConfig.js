@@ -20,7 +20,8 @@ const ICONS = {
   ecommerce: getIcon('ic_ecommerce'),
   analytics: getIcon('ic_analytics'),
   dashboard: getIcon('ic_dashboard'),
-  kanban: getIcon('ic_kanban')
+  kanban: getIcon('ic_kanban'),
+  brand: getIcon('ic_ecommerce')
 };
 
 const sidebarConfig = [
@@ -56,6 +57,17 @@ const sidebarConfig = [
           { title: 'create', path: PATH_DASHBOARD.user.newUser },
           { title: 'edit', path: PATH_DASHBOARD.user.editById },
           { title: 'account', path: PATH_DASHBOARD.user.account }
+        ]
+      },
+      {
+        title: 'Brand',
+        path: PATH_DASHBOARD.brand.root,
+        icon: ICONS.brand,
+        children: [
+          // { title: 'profile', path: PATH_DASHBOARD.user.profile },
+          { title: 'list', path: PATH_DASHBOARD.brand.list }
+          // { title: 'create', path: PATH_DASHBOARD.user.newUser },
+          // { title: 'edit', path: PATH_DASHBOARD.user.editById },
         ]
       }
 
