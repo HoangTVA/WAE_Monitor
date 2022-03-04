@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
 // material
-
 import {
   Card,
   Table,
@@ -34,6 +33,7 @@ import { BrandListHead, BrandListToolbar, BrandMoreMenu } from '../../components
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
+  { id: 'id', label: 'ID', alignRight: false },
   { id: 'brandNname', label: 'Name', alignRight: false },
   { id: 'brandAddress', label: 'Address', alignRight: false },
   { id: 'brandWebsite', label: 'Website', alignRight: false },
@@ -61,7 +61,7 @@ function getComparator(order, orderBy) {
 }
 
 function applySortFilter(array, comparator, query) {
-  const stabilizedThis = array.map((headCell, index) => [headCell, index]);
+  const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) return order;
@@ -195,6 +195,7 @@ export default function BrandList() {
                         <TableCell padding="checkbox">
                           <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, brandName)} />
                         </TableCell>
+                        <TableCell align="left">{id}</TableCell>
                         <TableCell align="left">{brandName}</TableCell>
                         <TableCell align="left">{brandWebsite}</TableCell>
                         <TableCell align="left">{brandAddress}</TableCell>
