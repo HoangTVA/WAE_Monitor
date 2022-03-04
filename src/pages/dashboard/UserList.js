@@ -203,7 +203,13 @@ export default function UserList() {
                         <TableCell padding="checkbox">
                           <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
                         </TableCell>
-                        <TableCell align="left">{id}</TableCell>
+                        <TableCell component="th" scope="row" padding="none">
+                          <Stack direction="row" alignItems="center" spacing={2}>
+                            <Typography variant="subtitle2" noWrap>
+                              {name}
+                            </Typography>
+                          </Stack>
+                        </TableCell>
                         <TableCell align="left">{store}</TableCell>
                         <TableCell align="left">{dob}</TableCell>
                         <TableCell align="left">{email}</TableCell>

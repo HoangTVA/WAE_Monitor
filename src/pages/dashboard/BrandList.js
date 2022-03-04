@@ -1,23 +1,19 @@
 import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
-import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
 // material
-import { useTheme } from '@material-ui/core/styles';
+
 import {
   Card,
   Table,
-  Stack,
-  Avatar,
   Button,
   Checkbox,
   TableRow,
   TableBody,
   TableCell,
   Container,
-  Typography,
   TableContainer,
   TablePagination
 } from '@material-ui/core';
@@ -30,21 +26,19 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
-import Label from '../../components/Label';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../../components/_dashboard/user/list';
+import { BrandListHead, BrandListToolbar, BrandMoreMenu } from '../../components/_dashboard/brand/list';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'id', label: 'ID', alignRight: false },
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'address', label: 'Address', alignRight: false },
-  { id: 'website', label: 'Website', alignRight: false },
-  { id: 'email', label: 'Email', alignRight: false },
-  { id: 'phone', label: 'Phone', alignRight: false },
+  { id: 'brandNname', label: 'Name', alignRight: false },
+  { id: 'brandAddress', label: 'Address', alignRight: false },
+  { id: 'brandWebsite', label: 'Website', alignRight: false },
+  { id: 'brandEmail', label: 'Email', alignRight: false },
+  { id: 'brandPhone', label: 'Phone', alignRight: false },
   { id: '' }
 ];
 
@@ -67,7 +61,7 @@ function getComparator(order, orderBy) {
 }
 
 function applySortFilter(array, comparator, query) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
+  const stabilizedThis = array.map((headCell, index) => [headCell, index]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) return order;
@@ -79,11 +73,10 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function UserList() {
+export default function BrandList() {
   const { themeStretch } = useSettings();
-  const theme = useTheme();
   const dispatch = useDispatch();
-  const { userList } = useSelector((state) => state.user);
+  const { brandList } = useSelector((state) => state.brand);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -103,7 +96,7 @@ export default function UserList() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = userList.map((n) => n.name);
+      const newSelecteds = brandList.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -138,15 +131,15 @@ export default function UserList() {
     setFilterName(event.target.value);
   };
 
-  const handleDeleteBrand = (userId) => {
-    dispatch(deleteBrand(userId));
+  const handleDeleteBrand = (brandId) => {
+    dispatch(deleteBrand(brandId));
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userList.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - brandList.length) : 0;
 
-  const filteredUsers = applySortFilter(userList, getComparator(order, orderBy), filterName);
+  const filteredBrand = applySortFilter(brandList, getComparator(order, orderBy), filterName);
 
-  const isUserNotFound = filteredUsers.length === 0;
+  const isBrandNotFound = filteredBrand.length === 0;
 
   return (
     <Page title="Brand: List | Minimal-UI">
@@ -171,24 +164,24 @@ export default function UserList() {
         />
 
         <Card>
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <BrandListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
-                <UserListHead
+                <BrandListHead
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={userList.length}
+                  rowCount={brandList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, address, website, email, phone } = row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+                  {filteredBrand.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                    const { id, brandName, brandAddress, brandWebsite, brandEmail, brandPhone } = row;
+                    const isItemSelected = selected.indexOf(brandName) !== -1;
 
                     return (
                       <TableRow
@@ -200,17 +193,16 @@ export default function UserList() {
                         aria-checked={isItemSelected}
                       >
                         <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
+                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, brandName)} />
                         </TableCell>
-                        <TableCell align="left">{id}</TableCell>
-                        <TableCell align="left">{name}</TableCell>
-                        <TableCell align="left">{website}</TableCell>
-                        <TableCell align="left">{address}</TableCell>
-                        <TableCell align="left">{email}</TableCell>
-                        <TableCell align="left">{phone}</TableCell>
+                        <TableCell align="left">{brandName}</TableCell>
+                        <TableCell align="left">{brandWebsite}</TableCell>
+                        <TableCell align="left">{brandAddress}</TableCell>
+                        <TableCell align="left">{brandEmail}</TableCell>
+                        <TableCell align="left">{brandPhone}</TableCell>
 
                         <TableCell align="right">
-                          <UserMoreMenu onDelete={() => handleDeleteBrand(id)} userName={name} />
+                          <BrandMoreMenu onDelete={() => handleDeleteBrand(id)} brandName={brandName} />
                         </TableCell>
                       </TableRow>
                     );
@@ -221,7 +213,7 @@ export default function UserList() {
                     </TableRow>
                   )}
                 </TableBody>
-                {isUserNotFound && (
+                {isBrandNotFound && (
                   <TableBody>
                     <TableRow>
                       <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
@@ -237,7 +229,7 @@ export default function UserList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={userList.length}
+            count={brandList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

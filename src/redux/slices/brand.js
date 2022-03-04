@@ -1,4 +1,4 @@
-import { map, filter } from 'lodash';
+import { filter } from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
 // utils
 import axios from '../../utils/axios';
@@ -6,7 +6,7 @@ import axios from '../../utils/axios';
 // ----------------------------------------------------------------------
 
 const initialState = {
-  brand: []
+  brandList: []
 };
 
 const slice = createSlice({
@@ -69,7 +69,7 @@ export function getBrandList() {
     try {
       const response = await axios.get('/api/brands');
       newBrandList(response);
-      dispatch(slice.actions.getBrandListSuccess(response.data.brand));
+      dispatch(slice.actions.getBrandListSuccess(response.data.brandList));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
