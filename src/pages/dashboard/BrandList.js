@@ -35,8 +35,8 @@ import { BrandListHead, BrandListToolbar, BrandMoreMenu } from '../../components
 const TABLE_HEAD = [
   { id: 'id', label: 'ID', alignRight: false },
   { id: 'brandNname', label: 'Name', alignRight: false },
-  { id: 'brandAddress', label: 'Address', alignRight: false },
   { id: 'brandWebsite', label: 'Website', alignRight: false },
+  { id: 'brandAddress', label: 'Address', alignRight: false },
   { id: 'brandEmail', label: 'Email', alignRight: false },
   { id: 'brandPhone', label: 'Phone', alignRight: false },
   { id: '' }
@@ -60,16 +60,16 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function applySortFilter(array, comparator, query) {
+function applySortFilter(array, comparator, searchQuery) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  if (query) {
-    return filter(array, (_brand) => _brand.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
-  }
+  // if (searchQuery) {
+  //   return filter(array, (_brand) => _brand.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
+  // }
   return stabilizedThis.map((el) => el[0]);
 }
 

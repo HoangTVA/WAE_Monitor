@@ -10,7 +10,7 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'brand',
+  name: 'brandList',
   initialState,
   reducers: {
     // START LOADING
@@ -34,6 +34,12 @@ const slice = createSlice({
     getBrandListSuccess(state, action) {
       state.isLoading = false;
       state.brandList = action.payload;
+    },
+
+    // GET BRANDs
+    getBrandsSuccess(state, action) {
+      state.isLoading = false;
+      state.brands = action.payload;
     }
   }
 });
@@ -67,11 +73,13 @@ export function getBrandList() {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('/api/brands');
+      const response = await axios.get('/api/v1.5/brands');
       newBrandList(response);
-      dispatch(slice.actions.getBrandListSuccess(response.data.brandList));
+      dispatch(slice.actions.getBrandListSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
   };
 }
+
+// ----------------------------------------------------------------------

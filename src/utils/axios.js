@@ -5,11 +5,16 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://waemonitor.az
 
 const token = localStorage.getItem('accessToken');
 
-const axiosInstance = axios.create();
+const axiosInstance = axios.create({
+  baseURL: 'https://waemonitor.azurewebsites.net',
+  headers: {
+    'content-type': 'application/json'
+  }
+});
 
 axios.defaults.headers = {
   // eslint-disable-next-line prettier/prettier
-  'Authorization': token,
+  Authorization: token,
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
   'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
