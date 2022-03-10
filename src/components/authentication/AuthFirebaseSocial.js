@@ -5,6 +5,7 @@ import facebookFill from '@iconify/icons-eva/facebook-fill';
 // material
 import { Stack, Button, Divider, Typography } from '@material-ui/core';
 // hooks
+import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
@@ -14,7 +15,20 @@ export default function AuthFirebaseSocials() {
 
   const handleLoginGoogle = async () => {
     try {
-      await loginWithGoogle();
+      const g = await loginWithGoogle();
+      console.log(g.user.uid);
+      const { uid } = g.user;
+      axios
+        .post('/api/v1.5/users/login', { uid })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            sessionStorage.setItem('accessToken', res.data.token);
+          }
+        })
+        .catch((er) => {
+          console.log(er);
+        });
     } catch (error) {
       console.error(error);
     }
