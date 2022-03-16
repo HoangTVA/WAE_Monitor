@@ -40,8 +40,6 @@ const AuthContext = createContext({
   login: () => Promise.resolve(),
   register: () => Promise.resolve(),
   loginWithGoogle: () => Promise.resolve(),
-  loginWithFaceBook: () => Promise.resolve(),
-  loginWithTwitter: () => Promise.resolve(),
   logout: () => Promise.resolve()
 });
 
@@ -90,16 +88,6 @@ function AuthProvider({ children }) {
     return firebase.auth().signInWithPopup(provider);
   };
 
-  const loginWithFaceBook = () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    return firebase.auth().signInWithPopup(provider);
-  };
-
-  const loginWithTwitter = () => {
-    const provider = new firebase.auth.TwitterAuthProvider();
-    return firebase.auth().signInWithPopup(provider);
-  };
-
   const register = (email, password, firstName, lastName) =>
     firebase
       .auth()
@@ -137,20 +125,11 @@ function AuthProvider({ children }) {
           photoURL: auth.photoURL || profile?.photoURL,
           displayName: auth.displayName || profile?.displayName,
           role: ADMIN_EMAILS.includes(auth.email) ? 'admin' : 'user',
-          phoneNumber: auth.phoneNumber || profile?.phoneNumber || '',
-          country: profile?.country || '',
-          address: profile?.address || '',
-          state: profile?.state || '',
-          city: profile?.city || '',
-          zipCode: profile?.zipCode || '',
-          about: profile?.about || '',
-          isPublic: profile?.isPublic || false
+          phoneNumber: auth.phoneNumber || profile?.phoneNumber || ''
         },
         login,
         register,
         loginWithGoogle,
-        loginWithFaceBook,
-        loginWithTwitter,
         logout,
         resetPassword
       }}

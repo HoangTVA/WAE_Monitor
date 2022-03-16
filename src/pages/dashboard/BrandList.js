@@ -17,6 +17,7 @@ import {
   TablePagination
 } from '@material-ui/core';
 // redux
+import axios from 'axios';
 import { useDispatch, useSelector } from '../../redux/store';
 import { getBrandList, deleteBrand } from '../../redux/slices/brand';
 // routes
@@ -67,9 +68,9 @@ function applySortFilter(array, comparator, searchQuery) {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  // if (searchQuery) {
-  //   return filter(array, (_brand) => _brand.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
-  // }
+  if (searchQuery) {
+    return filter(array, (_brand) => _brand.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
+  }
   return stabilizedThis.map((el) => el[0]);
 }
 
@@ -96,18 +97,18 @@ export default function BrandList() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = brandList.map((n) => n.name);
+      const newSelecteds = brandList.map((n) => n.brandName);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, brandName) => {
+    const selectedIndex = selected.indexOf(brandName);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, brandName);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -132,6 +133,7 @@ export default function BrandList() {
   };
 
   const handleDeleteBrand = (brandId) => {
+    axios.delete(`/brands?id=${brandId}`);
     dispatch(deleteBrand(brandId));
   };
 
@@ -142,13 +144,13 @@ export default function BrandList() {
   const isBrandNotFound = filteredBrand.length === 0;
 
   return (
-    <Page title="Brand: List | Minimal-UI">
+    <Page title="Brand: List | WAEM">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Brand List"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Brand', href: PATH_DASHBOARD.brand.root },
+            { name: 'Brand', href: PATH_DASHBOARD.brand.list },
             { name: 'List' }
           ]}
           action={

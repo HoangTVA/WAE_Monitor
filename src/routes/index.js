@@ -76,7 +76,7 @@ export default function Router() {
         </AuthGuard>
       ),
       children: [
-        { path: '/', element: <Navigate to="/dashboard/app" replace /> },
+        { path: '/', element: <Navigate to="/dashboard/analytics" replace /> },
         { path: 'app', element: <GeneralApp /> },
         { path: 'ecommerce', element: <GeneralEcommerce /> },
         {
@@ -113,8 +113,8 @@ export default function Router() {
           children: [
             { path: '/', element: <Navigate to="/dashboard/brand/detail" replace /> },
             // { path: 'detail', element: <BrandDetail /> },
-            { path: 'list', element: <BrandList /> }
-            // { path: 'new', element: <BrandCreate /> },
+            { path: 'list', element: <BrandList /> },
+            { path: 'new', element: <BrandCreate /> }
             // { path: '/:name/edit', element: <BrandCreate /> },
           ]
         },
@@ -263,7 +263,7 @@ const Calendar = Loadable(lazy(() => import('../pages/dashboard/Calendar')));
 const Kanban = Loadable(lazy(() => import('../pages/dashboard/Kanban')));
 // const BrandDetail = Loadable(lazy(() => import('../pages/dashboard/BrandDetail')));
 const BrandList = Loadable(lazy(() => import('../pages/dashboard/BrandList')));
-// const BrandCreate = Loadable(lazy(() => import('../pages/dashboard/BrandCreate')));
+const BrandCreate = Loadable(lazy(() => import('../pages/dashboard/BrandCreate')));
 // Main
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));
 const About = Loadable(lazy(() => import('../pages/About')));

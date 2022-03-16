@@ -10,7 +10,7 @@ import roundAccountBox from '@iconify/icons-ic/round-account-box';
 import { Container, Tab, Box, Tabs, Stack } from '@material-ui/core';
 // redux
 import { useDispatch } from '../../redux/store';
-import { getCards, getProfile, getInvoices, getAddressBook, getNotifications } from '../../redux/slices/user';
+import { getProfile, getInvoices, getAddressBook, getNotifications } from '../../redux/slices/user';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -34,7 +34,6 @@ export default function UserAccount() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCards());
     dispatch(getAddressBook());
     dispatch(getInvoices());
     dispatch(getNotifications());

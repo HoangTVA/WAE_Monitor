@@ -1,16 +1,9 @@
 import axios from 'axios';
 
 // ----------------------------------------------------------------------
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://waemonitor.azurewebsites.net';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://waemonitor.azurewebsites.net/api/v1.5';
 
-const token = sessionStorage.getItem('accessToken');
-
-const axiosInstance = axios.create({
-  baseURL: 'https://waemonitor.azurewebsites.net',
-  headers: {
-    'content-type': 'application/json'
-  }
-});
+const token = localStorage.getItem('accessToken');
 
 axios.defaults.headers = {
   // eslint-disable-next-line prettier/prettier
@@ -34,6 +27,7 @@ axios.defaults.headers = {
 //   update: (target, body) => requests.put(`/${target}`, body),
 //   delete: (target, data) => requests.del(`/${target}`, data)
 // };
+const axiosInstance = axios.create();
 
 axiosInstance.interceptors.response.use(
   (response) => response,

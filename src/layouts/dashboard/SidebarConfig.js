@@ -20,7 +20,7 @@ const ICONS = {
   ecommerce: getIcon('ic_ecommerce'),
   analytics: getIcon('ic_analytics'),
   dashboard: getIcon('ic_dashboard'),
-  kanban: getIcon('ic_kanban'),
+  account: getIcon('ic_account'),
   brand: getIcon('ic_ecommerce')
 };
 
@@ -55,8 +55,7 @@ const sidebarConfig = [
           // { title: 'cards', path: PATH_DASHBOARD.user.cards },
           { title: 'list', path: PATH_DASHBOARD.user.list },
           { title: 'create', path: PATH_DASHBOARD.user.newUser },
-          { title: 'edit', path: PATH_DASHBOARD.user.editById },
-          { title: 'account', path: PATH_DASHBOARD.user.account }
+          { title: 'edit', path: PATH_DASHBOARD.user.editById }
         ]
       },
       {

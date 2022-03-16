@@ -73,7 +73,7 @@ export function getBrandList() {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('/api/v1.5/brands');
+      const response = await axios.get('/brands');
       axios.get('/api/v1.5/brands').then((res) => console.log(res));
       newBrandList(response);
       dispatch(slice.actions.getBrandListSuccess(response.data));
