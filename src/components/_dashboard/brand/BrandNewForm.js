@@ -56,7 +56,7 @@ export default function BrandNewForm({ isEdit, currentBrand }) {
     validationSchema: NewBrandSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
       try {
-        await axios.post(`/brands`);
+        await axios.post(`/brands`, values);
         resetForm();
         setSubmitting(false);
         enqueueSnackbar(!isEdit ? 'Create success' : 'Update success', { variant: 'success' });
