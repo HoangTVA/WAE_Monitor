@@ -47,7 +47,7 @@ export default function BrandNewForm({ isEdit, currentBrand }) {
         if (!isEdit) {
           await axios.post(`/brands`, values);
         } else {
-          await axios.put(`/brands?id=${currentBrand?.id}`);
+          await axios.put(`/brands?id=${currentBrand?.id}`, values);
         }
         resetForm();
         setSubmitting(false);
