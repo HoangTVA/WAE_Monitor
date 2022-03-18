@@ -17,7 +17,7 @@ import {
   TablePagination
 } from '@material-ui/core';
 // redux
-import axios from 'axios';
+import axios from '../../utils/axios';
 import { useDispatch, useSelector } from '../../redux/store';
 import { getBrandList, deleteBrand } from '../../redux/slices/brand';
 // routes
@@ -205,7 +205,7 @@ export default function BrandList() {
                         <TableCell align="left">{brandPhone}</TableCell>
 
                         <TableCell align="right">
-                          <BrandMoreMenu onDelete={() => handleDeleteBrand(id)} brandName={brandName} />
+                          <BrandMoreMenu onDelete={() => handleDeleteBrand(id)} brandId={id} />
                         </TableCell>
                       </TableRow>
                     );

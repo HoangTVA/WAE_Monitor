@@ -21,10 +21,10 @@ export default function BrandCreate() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const { brandName } = useParams();
+  const { brandId } = useParams();
   const { brandList } = useSelector((state) => state.brand);
   const isEdit = pathname.includes('edit');
-  const currentBrand = brandList.find((brand) => paramCase(brand.brandName) === brandName);
+  const currentBrand = brandList.find((brand) => brand.brandId === brandId);
 
   useEffect(() => {
     dispatch(getBrandList());
@@ -38,7 +38,7 @@ export default function BrandCreate() {
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Brand', href: PATH_DASHBOARD.brand.list },
-            { name: !isEdit ? 'New brand' : brandName }
+            { name: !isEdit ? 'New brand' : 'Update brand' }
           ]}
         />
 

@@ -1,29 +1,16 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { useCallback } from 'react';
 import { useSnackbar } from 'notistack5';
 import { useNavigate } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 // material
 import { LoadingButton } from '@material-ui/lab';
-import {
-  Box,
-  Card,
-  Grid,
-  Stack,
-  Switch,
-  TextField,
-  Typography,
-  FormHelperText,
-  FormControlLabel
-} from '@material-ui/core';
+import { Box, Card, Grid, Stack, TextField } from '@material-ui/core';
 // utils
-import axios from 'axios';
+import axios from '../../../utils/axios';
 
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
-//
-import Label from '../../Label';
 
 // ----------------------------------------------------------------------
 
@@ -54,9 +41,14 @@ export default function BrandNewForm({ isEdit, currentBrand }) {
       brandWebsite: currentBrand?.brandWebsite || ''
     },
     validationSchema: NewBrandSchema,
+
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
       try {
-        await axios.post(`/brands`);
+        if (!isEdit) {
+          await axios.post(`/brands`, values);
+        } else {
+          await axios.put(`/brands?id=${currentBrand?.id}`);
+        }
         resetForm();
         setSubmitting(false);
         enqueueSnackbar(!isEdit ? 'Create success' : 'Update success', { variant: 'success' });

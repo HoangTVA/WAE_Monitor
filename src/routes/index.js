@@ -114,8 +114,8 @@ export default function Router() {
             { path: '/', element: <Navigate to="/dashboard/brand/detail" replace /> },
             // { path: 'detail', element: <BrandDetail /> },
             { path: 'list', element: <BrandList /> },
-            { path: 'new', element: <BrandCreate /> }
-            // { path: '/:name/edit', element: <BrandCreate /> },
+            { path: 'new', element: <BrandCreate /> },
+            { path: '/:id/edit', element: <BrandCreate /> }
           ]
         },
         {

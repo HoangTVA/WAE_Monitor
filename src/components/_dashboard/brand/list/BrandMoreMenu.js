@@ -15,10 +15,10 @@ import { PATH_DASHBOARD } from '../../../../routes/paths';
 
 BrandMoreMenu.propTypes = {
   onDelete: PropTypes.func,
-  brandName: PropTypes.string
+  brandId: PropTypes.number
 };
 
-export default function BrandMoreMenu({ onDelete, brandName }) {
+export default function BrandMoreMenu({ onDelete, brandId }) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -47,7 +47,7 @@ export default function BrandMoreMenu({ onDelete, brandName }) {
 
         <MenuItem
           component={RouterLink}
-          to={`${PATH_DASHBOARD.brand.root}/${paramCase(brandName)}/edit`}
+          to={`${PATH_DASHBOARD.brand.root}/${brandId}/edit`}
           sx={{ color: 'text.secondary' }}
         >
           <ListItemIcon>
