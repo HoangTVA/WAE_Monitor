@@ -61,11 +61,15 @@ export const PATH_DASHBOARD = {
   },
   brand: {
     root: path(ROOTS_DASHBOARD, '/brand'),
-    profile: path(ROOTS_DASHBOARD, '/brand/profile'),
-    cards: path(ROOTS_DASHBOARD, '/brand/cards'),
     list: path(ROOTS_DASHBOARD, '/brand/list'),
     newBrand: path(ROOTS_DASHBOARD, '/brand/new'),
     editById: path(ROOTS_DASHBOARD, '/brand/edit')
+  },
+  store: {
+    root: path(ROOTS_DASHBOARD, '/store'),
+    list: path(ROOTS_DASHBOARD, '/store/list'),
+    newStore: path(ROOTS_DASHBOARD, '/store/new'),
+    editById: path(ROOTS_DASHBOARD, '/store/edit')
   },
   eCommerce: {
     root: path(ROOTS_DASHBOARD, '/e-commerce'),

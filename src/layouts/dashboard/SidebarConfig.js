@@ -17,7 +17,7 @@ const ICONS = {
   mail: getIcon('ic_mail'),
   user: getIcon('ic_user'),
   calendar: getIcon('ic_calendar'),
-  ecommerce: getIcon('ic_ecommerce'),
+  store: getIcon('ic_cart'),
   analytics: getIcon('ic_analytics'),
   dashboard: getIcon('ic_dashboard'),
   account: getIcon('ic_account'),
@@ -29,15 +29,7 @@ const sidebarConfig = [
   // ----------------------------------------------------------------------
   {
     subheader: 'general',
-    items: [
-      // {
-      //   title: 'app',
-      //   path: PATH_DASHBOARD.general.app,
-      //   icon: ICONS.dashboard
-      // },
-      // { title: 'e-commerce', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
-      { title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics }
-    ]
+    items: [{ title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics }]
   },
 
   // MANAGEMENT
@@ -47,27 +39,16 @@ const sidebarConfig = [
     items: [
       // MANAGEMENT : USER
       {
-        title: 'User',
-        path: PATH_DASHBOARD.user.root,
-        icon: ICONS.user,
-        children: [
-          // { title: 'profile', path: PATH_DASHBOARD.user.profile },
-          // { title: 'cards', path: PATH_DASHBOARD.user.cards },
-          { title: 'list', path: PATH_DASHBOARD.user.list },
-          { title: 'create', path: PATH_DASHBOARD.user.newUser },
-          { title: 'edit', path: PATH_DASHBOARD.user.editById }
-        ]
+        title: 'Store',
+        path: PATH_DASHBOARD.store.root,
+        icon: ICONS.store,
+        children: [{ title: 'list', path: PATH_DASHBOARD.store.list }]
       },
       {
         title: 'Brand',
         path: PATH_DASHBOARD.brand.root,
         icon: ICONS.brand,
-        children: [
-          // { title: 'profile', path: PATH_DASHBOARD.user.profile },
-          { title: 'list', path: PATH_DASHBOARD.brand.list }
-          // { title: 'create', path: PATH_DASHBOARD.user.newUser },
-          // { title: 'edit', path: PATH_DASHBOARD.user.editById },
-        ]
+        children: [{ title: 'list', path: PATH_DASHBOARD.brand.list }]
       }
 
       // MANAGEMENT : E-COMMERCE

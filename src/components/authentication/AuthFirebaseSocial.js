@@ -24,29 +24,13 @@ export default function AuthFirebaseSocials() {
             localStorage.setItem('accessToken', res.data.token);
           }
         })
-        .catch((er) => {
-          console.log(er);
+        .catch((error) => {
+          console.log(error);
         });
     } catch (error) {
       console.error(error);
     }
   };
-
-  // const handleLoginFaceBook = async () => {
-  //   try {
-  //     await loginWithFaceBook();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const handleLoginTwitter = async () => {
-  //   try {
-  //     await loginWithTwitter();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     <>

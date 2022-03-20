@@ -12,7 +12,6 @@ import AuthLayout from '../../layouts/AuthLayout';
 // components
 import Page from '../../components/Page';
 import { MHidden } from '../../components/@material-extend';
-import { LoginForm } from '../../components/authentication/login';
 import AuthFirebaseSocials from '../../components/authentication/AuthFirebaseSocial';
 
 // ----------------------------------------------------------------------
@@ -46,14 +45,6 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Login() {
   const { method, login } = useAuth();
-
-  const handleLoginAuth0 = async () => {
-    try {
-      await login();
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <RootStyle title="Login | Minimal-UI">
@@ -89,18 +80,6 @@ export default function Login() {
           </Stack>
 
           {method === 'firebase' && <AuthFirebaseSocials />}
-
-          {/* <Alert severity="info" sx={{ mb: 3 }}>
-            Use email : <strong>demo@minimals.cc</strong> / password :<strong>&nbsp;demo1234</strong>
-          </Alert> */}
-
-          {/* {method !== 'auth0' ? (
-            <LoginForm />
-          ) : (
-            <Button fullWidth size="large" type="submit" variant="contained" onClick={handleLoginAuth0}>
-              Login
-            </Button>
-          )} */}
 
           <MHidden width="smUp">
             <Typography variant="body2" align="center" sx={{ mt: 3 }}>

@@ -111,11 +111,19 @@ export default function Router() {
         {
           path: 'brand',
           children: [
-            { path: '/', element: <Navigate to="/dashboard/brand/detail" replace /> },
-            // { path: 'detail', element: <BrandDetail /> },
+            { path: '/', element: <Navigate to="/dashboard/brand/list" replace /> },
             { path: 'list', element: <BrandList /> },
             { path: 'new', element: <BrandCreate /> },
             { path: '/:id/edit', element: <BrandCreate /> }
+          ]
+        },
+        {
+          path: 'store',
+          children: [
+            { path: '/', element: <Navigate to="/dashboard/store/list" replace /> },
+            { path: 'list', element: <StoreList /> },
+            { path: 'new', element: <StoreCreate /> },
+            { path: '/:id/edit', element: <StoreCreate /> }
           ]
         },
         {
@@ -261,9 +269,11 @@ const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
 const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
 const Calendar = Loadable(lazy(() => import('../pages/dashboard/Calendar')));
 const Kanban = Loadable(lazy(() => import('../pages/dashboard/Kanban')));
-// const BrandDetail = Loadable(lazy(() => import('../pages/dashboard/BrandDetail')));
 const BrandList = Loadable(lazy(() => import('../pages/dashboard/BrandList')));
 const BrandCreate = Loadable(lazy(() => import('../pages/dashboard/BrandCreate')));
+const StoreList = Loadable(lazy(() => import('../pages/dashboard/StoreList')));
+const StoreCreate = Loadable(lazy(() => import('../pages/dashboard/StoreCreate')));
+
 // Main
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));
 const About = Loadable(lazy(() => import('../pages/About')));

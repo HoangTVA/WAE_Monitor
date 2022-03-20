@@ -34,12 +34,6 @@ const slice = createSlice({
     getBrandListSuccess(state, action) {
       state.isLoading = false;
       state.brandList = action.payload;
-    },
-
-    // GET BRANDs
-    getBrandsSuccess(state, action) {
-      state.isLoading = false;
-      state.brands = action.payload;
     }
   }
 });

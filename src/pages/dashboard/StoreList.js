@@ -19,7 +19,9 @@ import {
 // redux
 import axios from '../../utils/axios';
 import { useDispatch, useSelector } from '../../redux/store';
-import { getBrandList, deleteBrand } from '../../redux/slices/brand';
+import { getStoreList, deleteStore } from '../../redux/slices/store';
+// import { getBrandList } from '../../redux/slices/brand';
+
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -29,17 +31,15 @@ import Page from '../../components/Page';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { BrandListHead, BrandListToolbar, BrandMoreMenu } from '../../components/_dashboard/brand/list';
+import { StoreListHead, StoreListToolbar, StoreMoreMenu } from '../../components/_dashboard/store/list';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'id', label: 'ID', alignRight: false },
-  { id: 'brandName', label: 'Name', alignRight: false },
-  { id: 'brandWebsite', label: 'Website', alignRight: false },
-  { id: 'brandAddress', label: 'Address', alignRight: false },
-  { id: 'brandEmail', label: 'Email', alignRight: false },
-  { id: 'brandPhone', label: 'Phone', alignRight: false },
+  { id: 'id', label: 'Store ID', alignRight: false },
+  { id: 'brandId', label: 'Brand ID', alignRight: false },
+  { id: 'sName', label: 'Name', alignRight: false },
+  { id: 'sAddress', label: 'Address', alignRight: false },
   { id: '' }
 ];
 
@@ -69,25 +69,31 @@ function applySortFilter(array, comparator, searchQuery) {
     return a[1] - b[1];
   });
   if (searchQuery) {
-    return filter(array, (_brand) => _brand.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
+    return filter(array, (_store) => _store.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function BrandList() {
+export default function StoreList() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
-  const { brandList } = useSelector((state) => state.brand);
+  const { storeList } = useSelector((state) => state.store);
+  // const { brandList } = useSelector((state) => state.brand);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
-  const [orderBy, setOrderBy] = useState('name');
+  const [orderBy, setOrderBy] = useState('sName');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  // const [brandName, setBrandName] = useState('');
 
   useEffect(() => {
-    dispatch(getBrandList());
+    dispatch(getStoreList());
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(getBrandList());
+  // }, [dispatch]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -97,18 +103,18 @@ export default function BrandList() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = brandList.map((n) => n.brandName);
+      const newSelecteds = storeList.map((n) => n.sName);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, brandName) => {
-    const selectedIndex = selected.indexOf(brandName);
+  const handleClick = (event, sName) => {
+    const selectedIndex = selected.indexOf(sName);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, brandName);
+      newSelected = newSelected.concat(selected, sName);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -132,58 +138,68 @@ export default function BrandList() {
     setFilterName(event.target.value);
   };
 
-  const handleDeleteBrand = (brandId) => {
-    axios.delete(`/brands?id=${brandId}`);
-    dispatch(deleteBrand(brandId));
+  const handleDeleteStore = (sId) => {
+    axios.delete(`/store?id=${sId}`);
+    dispatch(deleteStore(sId));
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - brandList.length) : 0;
+  // const handleDropdown = (event) => {
+  //   const brandDropdown = brandList.map((brand) => brand.brandName);
+  //   setBrandName(brandDropdown);
+  // };
 
-  const filteredBrand = applySortFilter(brandList, getComparator(order, orderBy), filterName);
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - storeList.length) : 0;
 
-  const isBrandNotFound = filteredBrand.length === 0;
+  const filteredStore = applySortFilter(storeList, getComparator(order, orderBy), filterName);
+
+  const isStoreNotFound = filteredStore.length === 0;
 
   return (
-    <Page title="Brand: List | WAEM">
+    <Page title="Store: List | WAEM">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Brand List"
+          heading="Store List"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Brand', href: PATH_DASHBOARD.brand.list },
+            { name: 'Store', href: PATH_DASHBOARD.store.list },
             { name: 'List' }
           ]}
           action={
             <Button
               variant="contained"
               component={RouterLink}
-              to={PATH_DASHBOARD.brand.newBrand}
+              to={PATH_DASHBOARD.store.newStore}
               startIcon={<Icon icon={plusFill} />}
             >
-              New Brand
+              New Store
             </Button>
           }
         />
 
         <Card>
-          <BrandListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <StoreListToolbar
+            numSelected={selected.length}
+            filterName={filterName}
+            onFilterName={handleFilterByName}
+            // brandName={handleDropdown}
+          />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
-                <BrandListHead
+                <StoreListHead
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={brandList.length}
+                  rowCount={storeList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredBrand.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, brandName, brandAddress, brandWebsite, brandEmail, brandPhone } = row;
-                    const isItemSelected = selected.indexOf(brandName) !== -1;
+                  {filteredStore.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                    const { id, brandId, sName, sAddress } = row;
+                    const isItemSelected = selected.indexOf(sName) !== -1;
 
                     return (
                       <TableRow
@@ -195,17 +211,15 @@ export default function BrandList() {
                         aria-checked={isItemSelected}
                       >
                         <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, brandName)} />
+                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, sName)} />
                         </TableCell>
                         <TableCell align="left">{id}</TableCell>
-                        <TableCell align="left">{brandName}</TableCell>
-                        <TableCell align="left">{brandWebsite}</TableCell>
-                        <TableCell align="left">{brandAddress}</TableCell>
-                        <TableCell align="left">{brandEmail}</TableCell>
-                        <TableCell align="left">{brandPhone}</TableCell>
+                        <TableCell align="left">{brandId}</TableCell>
+                        <TableCell align="left">{sName}</TableCell>
+                        <TableCell align="left">{sAddress}</TableCell>
 
                         <TableCell align="right">
-                          <BrandMoreMenu onDelete={() => handleDeleteBrand(id)} brandId={id} />
+                          <StoreMoreMenu onDelete={() => handleDeleteStore(id)} storeId={id} />
                         </TableCell>
                       </TableRow>
                     );
@@ -216,7 +230,7 @@ export default function BrandList() {
                     </TableRow>
                   )}
                 </TableBody>
-                {isBrandNotFound && (
+                {isStoreNotFound && (
                   <TableBody>
                     <TableRow>
                       <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
@@ -232,7 +246,7 @@ export default function BrandList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={brandList.length}
+            count={storeList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
