@@ -3,11 +3,14 @@ import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
+import { Chart } from 'react-google-charts';
 // material
 import {
   Card,
   Table,
   Button,
+  CardHeader,
+  Box,
   Checkbox,
   TableRow,
   TableBody,
@@ -85,6 +88,7 @@ export default function StoreList() {
   const [orderBy, setOrderBy] = useState('sName');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [chartData, setChartData] = useState([]);
   // const [brandName, setBrandName] = useState('');
 
   useEffect(() => {
@@ -143,6 +147,19 @@ export default function StoreList() {
     dispatch(deleteStore(sId));
   };
 
+  const handleGetChartData = () => {
+    console.log('yeeeeeeeeeeeeeeee');
+    try {
+      const response = axios
+        .get('/stores/report', {
+          params: { storeId: 12, year: 2022 }
+        })
+        .then((res) => setChartData(res.data));
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   // const handleDropdown = (event) => {
   //   const brandDropdown = brandList.map((brand) => brand.brandName);
   //   setBrandName(brandDropdown);
@@ -153,6 +170,10 @@ export default function StoreList() {
   const filteredStore = applySortFilter(storeList, getComparator(order, orderBy), filterName);
 
   const isStoreNotFound = filteredStore.length === 0;
+
+  useEffect(() => {
+    handleGetChartData();
+  }, []);
 
   return (
     <Page title="Store: List | WAEM">
@@ -175,6 +196,13 @@ export default function StoreList() {
             </Button>
           }
         />
+
+        <Card>
+          <CardHeader title="Total Store Usage" subheader="" />
+          <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+            <Chart chartType="Bar" data={chartData} height="364px" />
+          </Box>
+        </Card>
 
         <Card>
           <StoreListToolbar

@@ -23,6 +23,7 @@ MeasurementList.propTypes = {
 export default function MeasurementList({ measurementList }) {
   return (
     <Grid container spacing={3}>
+      {console.log(measurementList)}
       {measurementList.map((measurement) => (
         <Grid key={measurement.id} item xs={12} sm={6} md={3}>
           <MeasurementCard measurement={measurement} />
