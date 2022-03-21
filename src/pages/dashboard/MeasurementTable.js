@@ -13,7 +13,7 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { MeasurementSort, MeasurementList } from '../../components/_dashboard/measurement';
+import { MeasurementList } from '../../components/_dashboard/measurement';
 
 // ----------------------------------------------------------------------
 
