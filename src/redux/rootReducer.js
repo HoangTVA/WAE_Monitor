@@ -11,6 +11,8 @@ import storeReducer from './slices/store';
 import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
+import employeeReducer from './slices/employee';
+import measurementReducer from './slices/measurement';
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +30,13 @@ const productPersistConfig = {
   whitelist: ['sortBy', 'checkout']
 };
 
+const measurementPersistConfig = {
+  key: 'measurement',
+  storage,
+  keyPrefix: 'redux-',
+  whitelist: ['sortBy']
+};
+
 const rootReducer = combineReducers({
   mail: mailReducer,
   chat: chatReducer,
@@ -37,6 +46,8 @@ const rootReducer = combineReducers({
   store: storeReducer,
   calendar: calendarReducer,
   kanban: kanbanReducer,
+  employee: employeeReducer,
+  measurement: persistReducer(measurementPersistConfig, measurementReducer),
   product: persistReducer(productPersistConfig, productReducer)
 });
 

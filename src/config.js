@@ -15,8 +15,8 @@ export const cognitoConfig = {
 };
 
 export const auth0Config = {
-  clientId: '2CyhsVcspquD5rh0J3Zikt82MZtjeshO',
-  domain: 'dev-a4ey75li.us.auth0.com'
+  clientId: process.env.REACT_APP_AUTH0_CLIENT_ID,
+  domain: process.env.REACT_APP_AUTH0_DOMAIN
 };
 
 export const mapConfig = process.env.REACT_APP_MAP_MAPBOX;
