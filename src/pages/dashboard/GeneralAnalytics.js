@@ -5,18 +5,12 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import {
-  AnalyticsTasks,
   AnalyticsNewUsers,
   AnalyticsBugReports,
   AnalyticsItemOrders,
-  AnalyticsNewsUpdate,
   AnalyticsWeeklySales,
-  AnalyticsOrderTimeline,
   AnalyticsCurrentVisits,
-  AnalyticsWebsiteVisits,
-  AnalyticsTrafficBySite,
-  AnalyticsCurrentSubject,
-  AnalyticsConversionRates
+  AnalyticsWebsiteVisits
 } from '../../components/_dashboard/general-analytics';
 
 // ----------------------------------------------------------------------
@@ -25,7 +19,7 @@ export default function GeneralAnalytics() {
   const { themeStretch } = useSettings();
 
   return (
-    <Page title="General: Analytics | Minimal-UI">
+    <Page title="General: Analytics | WAEM">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Box sx={{ pb: 5 }}>
           <Typography variant="h4">Hi, Welcome back</Typography>
@@ -50,30 +44,6 @@ export default function GeneralAnalytics() {
 
           <Grid item xs={12} md={6} lg={4}>
             <AnalyticsCurrentVisits />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AnalyticsConversionRates />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsCurrentSubject />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AnalyticsNewsUpdate />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsOrderTimeline />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsTrafficBySite />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AnalyticsTasks />
           </Grid>
         </Grid>
       </Container>

@@ -21,7 +21,6 @@ export default function MeasurementTable() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const { measurementList } = useSelector((state) => state.measurement);
-
   useEffect(() => {
     dispatch(getMeasurementList());
   }, [dispatch]);
@@ -30,23 +29,16 @@ export default function MeasurementTable() {
     <Page title="Measurement | WAEM">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Measurement"
+          heading="Shop"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {
               name: 'Measurement',
               href: PATH_DASHBOARD.measurement.root
             },
-            { name: 'List' }
+            { name: 'Table' }
           ]}
         />
-
-        {/* <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
-          <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <MeasurementSort />
-          </Stack>
-        </Stack> */}
-
         <MeasurementList measurementList={measurementList} />
       </Container>
     </Page>

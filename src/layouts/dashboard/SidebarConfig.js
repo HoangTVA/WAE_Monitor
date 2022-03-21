@@ -1,7 +1,6 @@
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
-import Label from '../../components/Label';
 import SvgIconStyle from '../../components/SvgIconStyle';
 
 // ----------------------------------------------------------------------
@@ -11,12 +10,8 @@ const getIcon = (name) => (
 );
 
 const ICONS = {
-  blog: getIcon('ic_blog'),
-  cart: getIcon('ic_cart'),
-  chat: getIcon('ic_chat'),
-  mail: getIcon('ic_mail'),
   user: getIcon('ic_user'),
-  calendar: getIcon('ic_calendar'),
+  measure: getIcon('ic_calendar'),
   store: getIcon('ic_cart'),
   analytics: getIcon('ic_analytics'),
   dashboard: getIcon('ic_dashboard'),
@@ -37,7 +32,15 @@ const sidebarConfig = [
   {
     subheader: 'management',
     items: [
-      // MANAGEMENT : USER
+      {
+        title: 'Measurement',
+        path: PATH_DASHBOARD.measurement.root,
+        icon: ICONS.measure,
+        children: [
+          { title: 'table', path: PATH_DASHBOARD.measurement.table }
+          // { title: 'list', path: PATH_DASHBOARD.measurement.list }
+        ]
+      },
       {
         title: 'Store',
         path: PATH_DASHBOARD.store.root,
@@ -55,12 +58,6 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.employee.root,
         icon: ICONS.user,
         children: [{ title: 'list', path: PATH_DASHBOARD.employee.list }]
-      },
-      {
-        title: 'Measurement',
-        path: PATH_DASHBOARD.measurement.root,
-        icon: ICONS.calendar,
-        children: [{ title: 'list', path: PATH_DASHBOARD.measurement.list }]
       }
     ]
   }

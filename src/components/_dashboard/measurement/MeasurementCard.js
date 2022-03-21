@@ -36,11 +36,32 @@ export default function MeasurementCard({ measurement }) {
           {meterName}
         </Typography>
 
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
-          {/* <Typography variant="subtitle1">{id}</Typography> */}
-          <Typography variant="subtitle1">{measure}</Typography>
-          {/* <Typography variant="subtitle1">{mDate}</Typography>
-          <Typography variant="subtitle1">{mMonth}</Typography> */}
+        <Stack direction="column" alignItems="left" justifyContent="space-between">
+          <Typography variant="subtitle1">
+            <Typography
+              component="span"
+              variant="body1"
+              sx={{
+                color: 'text.disabled'
+              }}
+            >
+              Measure:&nbsp;
+            </Typography>
+            {measure}
+          </Typography>
+          <Typography variant="subtitle1">{mDate}</Typography>
+          <Typography variant="subtitle1">
+            <Typography
+              component="span"
+              variant="body1"
+              sx={{
+                color: 'text.disabled'
+              }}
+            >
+              Month:&nbsp;
+            </Typography>
+            {mMonth}
+          </Typography>
         </Stack>
       </Stack>
     </Card>

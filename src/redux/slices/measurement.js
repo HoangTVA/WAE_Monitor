@@ -8,13 +8,11 @@ import axios from '../../utils/axios';
 const initialState = {
   isLoading: false,
   error: false,
-  measurementList: [],
-  measure: null,
-  sortBy: null
+  measurementList: []
 };
 
 const slice = createSlice({
-  name: 'measurement',
+  name: 'measurementList',
   initialState,
   reducers: {
     // START LOADING
@@ -31,14 +29,14 @@ const slice = createSlice({
     // GET Measure List
     getMeasurementListSuccess(state, action) {
       state.isLoading = false;
-      state.products = action.payload;
+      state.measurementList = action.payload;
     },
 
-    // GET Measure
-    getMeasurementSuccess(state, action) {
-      state.isLoading = false;
-      state.product = action.payload;
-    },
+    // // GET Measure
+    // getMeasurementSuccess(state, action) {
+    //   state.isLoading = false;
+    //   state.measurement = action.payload;
+    // },
 
     //  SORT Measure
     sortByMeasurements(state, action) {
@@ -54,6 +52,23 @@ export default slice.reducer;
 export const { sortByMeasurements } = slice.actions;
 
 // ----------------------------------------------------------------------
+const newMeasurementList = (res) => {
+  console.log(res);
+  const measurementList = res.data.map((data) => {
+    const measurement = {
+      mId: data.id,
+      meterName: data.meterName,
+      mDate: data.mDate,
+      mMonth: data.mMonth,
+      evidence: data.evidence,
+      measure: data.measure
+    };
+    console.log(measurement);
+    return measurement;
+  });
+};
+
+// ----------------------------------------------------------------------
 
 export function getMeasurementList() {
   return async (dispatch) => {
@@ -61,6 +76,7 @@ export function getMeasurementList() {
     try {
       const response = await axios.get('/measurements');
       axios.get('/measurements').then((res) => console.log(res));
+      newMeasurementList(response);
       dispatch(slice.actions.getMeasurementListSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

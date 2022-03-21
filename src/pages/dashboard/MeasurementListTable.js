@@ -5,14 +5,14 @@ import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
 // material
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme, styled } from '@material-ui/core/styles';
 import {
+  Box,
   Card,
   Table,
-  Stack,
   Button,
-  Checkbox,
   TableRow,
+  Checkbox,
   TableBody,
   TableCell,
   Container,
@@ -21,9 +21,10 @@ import {
   TablePagination
 } from '@material-ui/core';
 // redux
-import axios from '../../utils/axios';
 import { useDispatch, useSelector } from '../../redux/store';
-import { getEmployeeList } from '../../redux/slices/employee';
+import { getMeasurementList } from '../../redux/slices/measurement';
+// utils
+import { fDate } from '../../utils/formatTime';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -33,20 +34,29 @@ import Page from '../../components/Page';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { EmployeeListHead, EmployeeListToolbar, EmployeeMoreMenu } from '../../components/_dashboard/employee/list';
+import {
+  MeasurementListHead,
+  MeasurementListToolbar,
+  MeasurementMoreMenu
+} from '../../components/_dashboard/measurement/list';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'id', label: 'Employee ID', alignRight: false },
-  { id: 'eName', label: 'Name', alignRight: false },
-  { id: 'workAt', label: 'Brand ID', alignRight: false },
-  { id: 'dob', label: 'Day Of Birth', alignRight: false },
-  { id: 'phone', label: 'Phone', alignRight: false },
-  { id: 'email', label: 'Email', alignRight: false },
-  { id: 'createdDate', label: 'Created Date', alignRight: false },
+  { id: 'meterName', label: 'Meter Name', alignRight: false },
+  { id: 'mDate', label: 'Date', alignRight: false },
+  { id: 'mMonth', label: 'Month', alignRight: false },
+  { id: 'measure', label: 'Measure', alignRight: true },
   { id: '' }
 ];
+
+const ThumbImgStyle = styled('img')(({ theme }) => ({
+  width: 64,
+  height: 64,
+  objectFit: 'cover',
+  margin: theme.spacing(0, 2),
+  borderRadius: theme.shape.borderRadiusSm
+}));
 
 // ----------------------------------------------------------------------
 
@@ -73,26 +83,30 @@ function applySortFilter(array, comparator, query) {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
+
   if (query) {
-    return filter(array, (employee) => employee.eName.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return filter(array, (_measurement) => _measurement.meterName.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
+
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function EmployeeList() {
+// ----------------------------------------------------------------------
+
+export default function MeasurementListTable() {
   const { themeStretch } = useSettings();
   const theme = useTheme();
   const dispatch = useDispatch();
-  const { employeeList } = useSelector((state) => state.employee);
+  const { measurementList } = useSelector((state) => state.measurement);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
-  const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [orderBy, setOrderBy] = useState('createdAt');
 
   useEffect(() => {
-    dispatch(getEmployeeList());
+    dispatch(getMeasurementList());
   }, [dispatch]);
 
   const handleRequestSort = (event, property) => {
@@ -103,18 +117,18 @@ export default function EmployeeList() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = employeeList.map((n) => n.eName);
+      const newSelecteds = measurementList.map((n) => n.meterName);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
+  const handleClick = (event, meterName) => {
+    const selectedIndex = selected.indexOf(meterName);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, meterName);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -138,36 +152,39 @@ export default function EmployeeList() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - employeeList.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - measurementList.length) : 0;
 
-  const filteredEmployees = applySortFilter(employeeList, getComparator(order, orderBy), filterName);
+  const filteredMeasurements = applySortFilter(measurementList, getComparator(order, orderBy), filterName);
 
-  const isEmployeeNotFound = filteredEmployees.length === 0;
+  const isProductNotFound = filteredMeasurements.length === 0;
 
   return (
-    <Page title="Employee: List | Minimal-UI">
+    <Page title="Measurement: List | WAEM">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Employee List"
+          heading="Measurement List"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Employee', href: PATH_DASHBOARD.employee.root },
-            { name: 'List' }
+            {
+              name: 'Measurement',
+              href: PATH_DASHBOARD.measurement.root
+            },
+            { name: 'Measurement List' }
           ]}
           action={
             <Button
               variant="contained"
               component={RouterLink}
-              to={PATH_DASHBOARD.employee.newEmployee}
+              to={PATH_DASHBOARD.measurement.root}
               startIcon={<Icon icon={plusFill} />}
             >
-              New Employee
+              Detail
             </Button>
           }
         />
 
         <Card>
-          <EmployeeListToolbar
+          <MeasurementListToolbar
             numSelected={selected.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
@@ -176,19 +193,21 @@ export default function EmployeeList() {
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
-                <EmployeeListHead
+                <MeasurementListHead
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={employeeList.length}
+                  rowCount={measurementList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredEmployees.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, eName, dob, workAt, email, ePhone, createdDate } = row;
-                    const isItemSelected = selected.indexOf(eName) !== -1;
+                  {filteredMeasurements.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                    const { id, meterName, evidence, measure, mDate, mMonth } = row;
+
+                    const isItemSelected = selected.indexOf(id) !== -1;
+
                     return (
                       <TableRow
                         hover
@@ -201,21 +220,25 @@ export default function EmployeeList() {
                         <TableCell padding="checkbox">
                           <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, id)} />
                         </TableCell>
-                        <TableCell align="left">{id}</TableCell>
                         <TableCell component="th" scope="row" padding="none">
-                          <Stack direction="row" alignItems="center" spacing={2}>
+                          <Box
+                            sx={{
+                              py: 2,
+                              display: 'flex',
+                              alignItems: 'center'
+                            }}
+                          >
+                            <ThumbImgStyle alt={meterName} src={evidence} />
                             <Typography variant="subtitle2" noWrap>
-                              {eName}
+                              {meterName}
                             </Typography>
-                          </Stack>
+                          </Box>
                         </TableCell>
-                        <TableCell align="left">{workAt}</TableCell>
-                        <TableCell align="left">{dob}</TableCell>
-                        <TableCell align="left">{ePhone}</TableCell>
-                        <TableCell align="left">{email}</TableCell>
-                        <TableCell align="left">{createdDate}</TableCell>
+                        <TableCell style={{ minWidth: 160 }}>{fDate(mDate)}</TableCell>
+                        <TableCell style={{ minWidth: 160 }}>{mMonth}</TableCell>
+                        <TableCell align="right">{measure}</TableCell>
                         <TableCell align="right">
-                          <EmployeeMoreMenu employeeId={id} />
+                          <MeasurementMoreMenu measurementId={id} />
                         </TableCell>
                       </TableRow>
                     );
@@ -226,11 +249,13 @@ export default function EmployeeList() {
                     </TableRow>
                   )}
                 </TableBody>
-                {isEmployeeNotFound && (
+                {isProductNotFound && (
                   <TableBody>
                     <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterName} />
+                      <TableCell align="center" colSpan={6}>
+                        <Box sx={{ py: 3 }}>
+                          <SearchNotFound searchQuery={filterName} />
+                        </Box>
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -242,7 +267,7 @@ export default function EmployeeList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={employeeList.length}
+            count={measurementList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

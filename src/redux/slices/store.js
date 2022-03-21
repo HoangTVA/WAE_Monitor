@@ -6,6 +6,8 @@ import axios from '../../utils/axios';
 // ----------------------------------------------------------------------
 
 const initialState = {
+  isLoading: false,
+  error: false,
   storeList: []
 };
 
@@ -49,7 +51,7 @@ const newStoreList = (res) => {
   console.log(res);
   const storeList = res.data.map((data) => {
     const store = {
-      storeId: data.id,
+      id: data.id,
       brandId: data.brandId,
       storeName: data.sName,
       storeAddress: data.sAddress

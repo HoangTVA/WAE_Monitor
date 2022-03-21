@@ -138,9 +138,9 @@ export default function StoreList() {
     setFilterName(event.target.value);
   };
 
-  const handleDeleteStore = (sId) => {
-    axios.delete(`/store?id=${sId}`);
-    dispatch(deleteStore(sId));
+  const handleDeleteStore = (id, values) => {
+    axios.delete(`/stores?id=${id}`, values);
+    dispatch(deleteStore(id));
   };
 
   // const handleDropdown = (event) => {
@@ -177,12 +177,7 @@ export default function StoreList() {
         />
 
         <Card>
-          <StoreListToolbar
-            numSelected={selected.length}
-            filterName={filterName}
-            onFilterName={handleFilterByName}
-            // brandName={handleDropdown}
-          />
+          <StoreListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>

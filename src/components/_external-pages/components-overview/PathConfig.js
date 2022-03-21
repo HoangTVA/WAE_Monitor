@@ -14,7 +14,6 @@ export const EXTRA_LIST = [
   'Editor',
   'Copy to clipboard',
   'Upload',
-  'Carousel',
   'Multi language',
   'Animate',
   'Mega Menu'

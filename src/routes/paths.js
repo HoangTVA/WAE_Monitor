@@ -41,22 +41,23 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/employee'),
     list: path(ROOTS_DASHBOARD, '/employee/list'),
     newEmployee: path(ROOTS_DASHBOARD, '/employee/new'),
-    editById: path(ROOTS_DASHBOARD, '/employee/edit')
+    editById: path(ROOTS_DASHBOARD, '/employee/:id/edit')
   },
   brand: {
     root: path(ROOTS_DASHBOARD, '/brand'),
     list: path(ROOTS_DASHBOARD, '/brand/list'),
     newBrand: path(ROOTS_DASHBOARD, '/brand/new'),
-    editById: path(ROOTS_DASHBOARD, '/brand/edit')
+    editById: path(ROOTS_DASHBOARD, '/brand/:id/edit')
   },
   store: {
     root: path(ROOTS_DASHBOARD, '/store'),
     list: path(ROOTS_DASHBOARD, '/store/list'),
     newStore: path(ROOTS_DASHBOARD, '/store/new'),
-    editById: path(ROOTS_DASHBOARD, '/store/edit')
+    editById: path(ROOTS_DASHBOARD, '/store/:id/edit')
   },
   measurement: {
     root: path(ROOTS_DASHBOARD, '/measurement'),
+    table: path(ROOTS_DASHBOARD, '/measurement/table'),
     list: path(ROOTS_DASHBOARD, '/measurement/list')
     // measurementById: path(ROOTS_DASHBOARD, '/measurement/:id')
   }

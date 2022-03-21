@@ -111,8 +111,9 @@ export default function Router() {
         {
           path: 'measurement',
           children: [
-            { path: '/', element: <Navigate to="/dashboard/measurement/list" replace /> },
-            { path: 'list', element: <MeasurementTable /> }
+            { path: '/', element: <Navigate to="/dashboard/measurement/table" replace /> },
+            { path: 'table', element: <MeasurementTable /> },
+            { path: 'list', element: <MeasurementListTable /> }
             // { path: ':id', element: <MeasurementDetails /> }
           ]
         }
@@ -189,10 +190,8 @@ export default function Router() {
             { path: 'editor', element: <Editor /> },
             { path: 'copy-to-clipboard', element: <CopyToClipboard /> },
             { path: 'upload', element: <Upload /> },
-            { path: 'carousel', element: <Carousel /> },
             { path: 'multi-language', element: <MultiLanguage /> },
-            { path: 'animate', element: <Animate /> },
-            { path: 'mega-menu', element: <MegaMenu /> }
+            { path: 'animate', element: <Animate /> }
           ]
         }
       ]
@@ -217,6 +216,7 @@ const BrandCreate = Loadable(lazy(() => import('../pages/dashboard/BrandCreate')
 const StoreList = Loadable(lazy(() => import('../pages/dashboard/StoreList')));
 const StoreCreate = Loadable(lazy(() => import('../pages/dashboard/StoreCreate')));
 const MeasurementTable = Loadable(lazy(() => import('../pages/dashboard/MeasurementTable')));
+const MeasurementListTable = Loadable(lazy(() => import('../pages/dashboard/MeasurementListTable')));
 // const MeasurementDetails = Loadable(lazy(() => import('../pages/dashboard/MeasurementDetails')));
 
 // Main
@@ -274,7 +274,5 @@ const Map = Loadable(lazy(() => import('../pages/components-overview/extra/Map')
 const Editor = Loadable(lazy(() => import('../pages/components-overview/extra/Editor')));
 const CopyToClipboard = Loadable(lazy(() => import('../pages/components-overview/extra/CopyToClipboard')));
 const Upload = Loadable(lazy(() => import('../pages/components-overview/extra/Upload')));
-const Carousel = Loadable(lazy(() => import('../pages/components-overview/extra/Carousel')));
 const MultiLanguage = Loadable(lazy(() => import('../pages/components-overview/extra/MultiLanguage')));
 const Animate = Loadable(lazy(() => import('../pages/components-overview/extra/animate')));
-const MegaMenu = Loadable(lazy(() => import('../pages/components-overview/extra/MegaMenu')));

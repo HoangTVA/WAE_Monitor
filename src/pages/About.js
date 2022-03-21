@@ -3,7 +3,7 @@ import { styled } from '@material-ui/core/styles';
 import { Divider } from '@material-ui/core';
 // components
 import Page from '../components/Page';
-import { AboutHero, AboutWhat, AboutTeam, AboutVision, AboutTestimonials } from '../components/_external-pages/about';
+import { AboutHero, AboutWhat, AboutVision, AboutTestimonials } from '../components/_external-pages/about';
 
 // ----------------------------------------------------------------------
 
@@ -23,7 +23,6 @@ export default function About() {
       <AboutWhat />
       <AboutVision />
       <Divider orientation="vertical" sx={{ my: 10, mx: 'auto', width: 2, height: 40 }} />
-      <AboutTeam />
       <AboutTestimonials />
     </RootStyle>
   );

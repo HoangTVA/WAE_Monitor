@@ -94,8 +94,6 @@ export default function EmployeeNewForm({ isEdit, currentEmployee }) {
                   error={Boolean(touched.ePhone && errors.ePhone)}
                   helperText={touched.ePhone && errors.ePhone}
                 />
-              </Stack>
-              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
                 <TextField
                   fullWidth
                   label="Employee Date Of Birth"
@@ -103,23 +101,27 @@ export default function EmployeeNewForm({ isEdit, currentEmployee }) {
                   error={Boolean(touched.dob && errors.dob)}
                   helperText={touched.dob && errors.dob}
                 />
-                <TextField
-                  fullWidth
-                  label="Employee Email"
-                  {...getFieldProps('email')}
-                  error={Boolean(touched.email && errors.email)}
-                  helperText={touched.email && errors.email}
-                />
               </Stack>
-              <FormControl fullWidth>
-                <Select native {...getFieldProps('workAt')} value={values.workAt}>
-                  {brandList.map((brand) => (
-                    <option key={brand.id} value={brand.id}>
-                      {brand.id}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
+              {!isEdit && (
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
+                  <TextField
+                    fullWidth
+                    label="Employee Email"
+                    {...getFieldProps('email')}
+                    error={Boolean(touched.email && errors.email)}
+                    helperText={touched.email && errors.email}
+                  />
+                  <FormControl fullWidth>
+                    <Select native {...getFieldProps('workAt')} value={values.workAt}>
+                      {brandList.map((brand) => (
+                        <option key={brand.id} value={brand.id}>
+                          {brand.id}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Stack>
+              )}
             </Stack>
             <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>

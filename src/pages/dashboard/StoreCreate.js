@@ -31,7 +31,7 @@ export default function StoreCreate() {
   }, [dispatch]);
 
   return (
-    <Page title="Store: Create a new store | WAEM">
+    <Page title="Store: Form | WAEM">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading={!isEdit ? 'Create a new store' : 'Edit store'}

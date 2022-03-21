@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // ----------------------------------------------------------------------
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://waemonitor.azurewebsites.net/api/v1.5';
+axios.defaults.baseURL = 'https://waemonitor.azurewebsites.net/api/v1.5';
 
 const token = localStorage.getItem('accessToken');
 

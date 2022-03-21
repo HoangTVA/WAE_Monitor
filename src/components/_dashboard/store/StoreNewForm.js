@@ -52,7 +52,7 @@ export default function StoreNewForm({ isEdit, currentStore }) {
         if (!isEdit) {
           await axios.post(`/stores`, values);
         } else {
-          await axios.put(`/stores?id=${currentStore?.id}`, values);
+          await axios.put(`/stores?id=${currentStore.id}`, values);
         }
         resetForm();
         setSubmitting(false);
@@ -90,15 +90,17 @@ export default function StoreNewForm({ isEdit, currentStore }) {
                   helperText={touched.sAddress && errors.sAddress}
                 />
               </Stack>
-              <FormControl fullWidth>
-                <Select native {...getFieldProps('brandId')} value={values.brandId}>
-                  {brandList.map((brand) => (
-                    <option key={brand.id} value={brand.id}>
-                      {brand.id}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
+              {!isEdit && (
+                <FormControl fullWidth>
+                  <Select native {...getFieldProps('brandId')} value={values.brandId}>
+                    {brandList.map((brand) => (
+                      <option key={brand.id} value={brand.id}>
+                        {brand.id}
+                      </option>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
             </Stack>
             <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
