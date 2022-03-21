@@ -4,8 +4,8 @@ import androidFilled from '@iconify/icons-ant-design/android-filled';
 import { alpha, styled } from '@material-ui/core/styles';
 import { Card, Typography } from '@material-ui/core';
 // utils
+import axios from 'axios';
 import { fShortenNumber } from '../../../utils/formatNumber';
-
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
@@ -34,7 +34,7 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 714000;
+const TOTAL = axios.get();
 
 export default function AnalyticsWeeklySales() {
   return (
@@ -44,7 +44,7 @@ export default function AnalyticsWeeklySales() {
       </IconWrapperStyle>
       <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Weekly Sales
+        Electicity Consumption
       </Typography>
     </RootStyle>
   );

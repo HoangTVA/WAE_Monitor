@@ -3,6 +3,7 @@ import ReactApexChart from 'react-apexcharts';
 // material
 import { useTheme, styled } from '@material-ui/core/styles';
 import { Card, CardHeader } from '@material-ui/core';
+import { Chart } from 'react-google-charts';
 // utils
 import { fNumber } from '../../../utils/formatNumber';
 //
@@ -31,14 +32,14 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [4344, 5435, 1443, 4443];
+const CHART_DATA = [3123, 1231, 2222, 5900];
 
 export default function AnalyticsCurrentVisits() {
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
     colors: [theme.palette.primary.main, theme.palette.info.main, theme.palette.warning.main, theme.palette.error.main],
-    labels: ['America', 'Asia', 'Europe', 'Africa'],
+    labels: ['Air Conditioners', 'Lights', 'Coffee Makers', 'Others'],
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
@@ -60,7 +61,7 @@ export default function AnalyticsCurrentVisits() {
     <Card>
       <CardHeader title="Current Visits" />
       <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
+        <Chart chartType="Pie" data={CHART_DATA} height={280} />
       </ChartWrapperStyle>
     </Card>
   );
