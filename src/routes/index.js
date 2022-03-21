@@ -87,7 +87,7 @@ export default function Router() {
             { path: '/', element: <Navigate to="/dashboard/employee/list" replace /> },
             { path: 'list', element: <EmployeeList /> },
             { path: 'new', element: <EmployeeCreate /> },
-            { path: '/:id/edit', element: <EmployeeCreate /> }
+            { path: '/:employeeId/edit', element: <EmployeeCreate /> }
           ]
         },
         {
@@ -96,7 +96,8 @@ export default function Router() {
             { path: '/', element: <Navigate to="/dashboard/brand/list" replace /> },
             { path: 'list', element: <BrandList /> },
             { path: 'new', element: <BrandCreate /> },
-            { path: '/:id/edit', element: <BrandCreate /> }
+            { path: '/:brandId/edit', element: <BrandCreate /> },
+            { path: '/:brandId/detail', element: <BrandDetail /> }
           ]
         },
         {
@@ -105,7 +106,8 @@ export default function Router() {
             { path: '/', element: <Navigate to="/dashboard/store/list" replace /> },
             { path: 'list', element: <StoreList /> },
             { path: 'new', element: <StoreCreate /> },
-            { path: '/:id/edit', element: <StoreCreate /> }
+            { path: '/:storeId/edit', element: <StoreCreate /> },
+            { path: '/:storeId/detail', element: <StoreDetail /> }
           ]
         },
         {
@@ -207,14 +209,21 @@ const Login = Loadable(lazy(() => import('../pages/authentication/Login')));
 const Register = Loadable(lazy(() => import('../pages/authentication/Register')));
 const ResetPassword = Loadable(lazy(() => import('../pages/authentication/ResetPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCode')));
+
 // Dashboard
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
+
 const EmployeeList = Loadable(lazy(() => import('../pages/dashboard/EmployeeList')));
 const EmployeeCreate = Loadable(lazy(() => import('../pages/dashboard/EmployeeCreate')));
+
 const BrandList = Loadable(lazy(() => import('../pages/dashboard/BrandList')));
 const BrandCreate = Loadable(lazy(() => import('../pages/dashboard/BrandCreate')));
+const BrandDetail = Loadable(lazy(() => import('../pages/dashboard/BrandDetail')));
+
 const StoreList = Loadable(lazy(() => import('../pages/dashboard/StoreList')));
 const StoreCreate = Loadable(lazy(() => import('../pages/dashboard/StoreCreate')));
+const StoreDetail = Loadable(lazy(() => import('../pages/dashboard/StoreDetail')));
+
 const MeasurementTable = Loadable(lazy(() => import('../pages/dashboard/MeasurementTable')));
 const MeasurementListTable = Loadable(lazy(() => import('../pages/dashboard/MeasurementListTable')));
 // const MeasurementDetails = Loadable(lazy(() => import('../pages/dashboard/MeasurementDetails')));
@@ -230,6 +239,7 @@ const Pricing = Loadable(lazy(() => import('../pages/Pricing')));
 const Payment = Loadable(lazy(() => import('../pages/Payment')));
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
+
 // Components
 const ComponentsOverview = Loadable(lazy(() => import('../pages/ComponentsOverview')));
 const Color = Loadable(lazy(() => import('../pages/components-overview/foundations/FoundationColors')));
@@ -268,6 +278,7 @@ const Tooltip = Loadable(lazy(() => import('../pages/components-overview/materia
 const TransferList = Loadable(lazy(() => import('../pages/components-overview/material-ui/transfer-list')));
 const TreeView = Loadable(lazy(() => import('../pages/components-overview/material-ui/TreeView')));
 const DataGrid = Loadable(lazy(() => import('../pages/components-overview/material-ui/data-grid')));
+
 //
 const Charts = Loadable(lazy(() => import('../pages/components-overview/extra/Charts')));
 const Map = Loadable(lazy(() => import('../pages/components-overview/extra/Map')));

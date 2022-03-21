@@ -52,7 +52,7 @@ export default function StoreNewForm({ isEdit, currentStore }) {
         if (!isEdit) {
           await axios.post(`/stores`, values);
         } else {
-          await axios.put(`/stores?id=${currentStore.id}`, values);
+          await axios.put(`/stores?id=${currentStore?.id}`, values);
         }
         resetForm();
         setSubmitting(false);

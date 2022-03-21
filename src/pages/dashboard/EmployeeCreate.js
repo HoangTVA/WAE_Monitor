@@ -24,7 +24,7 @@ export default function EmployeeCreate() {
   const { employeeId } = useParams();
   const { employeeList } = useSelector((state) => state.employee);
   const isEdit = pathname.includes('edit');
-  const currentEmployee = employeeList.find((employee) => employee.employeeId === employeeId);
+  const currentEmployee = employeeList.find((employee) => employee.id.toString() === employeeId);
 
   useEffect(() => {
     dispatch(getEmployeeList());

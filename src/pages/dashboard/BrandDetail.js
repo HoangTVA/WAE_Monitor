@@ -5,7 +5,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
-import { getStoreList } from '../../redux/slices/store';
+import { getBrandList } from '../../redux/slices/brand';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -13,39 +13,33 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import StoreNewForm from '../../components/_dashboard/store/StoreNewForm';
+import BrandDetailForm from '../../components/_dashboard/brand/BrandDetailForm';
 
 // ----------------------------------------------------------------------
 
-export default function StoreCreate() {
+export default function BrandCreate() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
-  const { storeId } = useParams();
-  const { storeList } = useSelector((state) => state.store);
-  const isEdit = pathname.includes('edit');
-  const currentStore = storeList.find((store) => store.id.toString() === storeId);
+  const { brandId } = useParams();
+  const { brandList } = useSelector((state) => state.brand);
+  const currentBrand = brandList.find((brand) => brand.id.toString() === brandId);
 
   useEffect(() => {
-    dispatch(getStoreList());
+    dispatch(getBrandList());
   }, [dispatch]);
 
   return (
-    <Page title="Store: Form | WAEM">
+    <Page title="Brand: Detail | WAEM">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading={!isEdit ? 'Create a new store' : 'Edit store'}
+          heading="Brand Detail"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            {
-              name: 'Store',
-              href: PATH_DASHBOARD.store.root
-            },
-            { name: !isEdit ? 'New product' : 'Update Store' }
+            { name: 'Brand', href: PATH_DASHBOARD.brand.list },
+            { name: 'Detail' }
           ]}
         />
-
-        <StoreNewForm isEdit={isEdit} currentStore={currentStore} />
+        <BrandDetailForm currentBrand={currentBrand} />
       </Container>
     </Page>
   );

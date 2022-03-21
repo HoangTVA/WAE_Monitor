@@ -6,6 +6,8 @@ import editFill from '@iconify/icons-eva/edit-fill';
 import { Link as RouterLink } from 'react-router-dom';
 import trash2Outline from '@iconify/icons-eva/trash-2-outline';
 import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
+import alertFill from '@iconify/icons-eva/alert-circle-fill';
+
 // material
 import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@material-ui/core';
 // routes
@@ -54,6 +56,16 @@ export default function BrandMoreMenu({ onDelete, brandId }) {
             <Icon icon={editFill} width={24} height={24} />
           </ListItemIcon>
           <ListItemText primary="Edit" primaryTypographyProps={{ variant: 'body2' }} />
+        </MenuItem>
+        <MenuItem
+          component={RouterLink}
+          to={`${PATH_DASHBOARD.brand.root}/${brandId}/detail`}
+          sx={{ color: 'text.secondary' }}
+        >
+          <ListItemIcon>
+            <Icon icon={alertFill} width={24} height={24} />
+          </ListItemIcon>
+          <ListItemText primary="Detail" primaryTypographyProps={{ variant: 'body2' }} />
         </MenuItem>
       </Menu>
     </>

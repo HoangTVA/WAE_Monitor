@@ -13,17 +13,15 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import StoreNewForm from '../../components/_dashboard/store/StoreNewForm';
+import StoreDetailForm from '../../components/_dashboard/store/StoreDetailForm';
 
 // ----------------------------------------------------------------------
 
 export default function StoreCreate() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
   const { storeId } = useParams();
   const { storeList } = useSelector((state) => state.store);
-  const isEdit = pathname.includes('edit');
   const currentStore = storeList.find((store) => store.id.toString() === storeId);
 
   useEffect(() => {
@@ -31,21 +29,17 @@ export default function StoreCreate() {
   }, [dispatch]);
 
   return (
-    <Page title="Store: Form | WAEM">
+    <Page title="Store: Detail | WAEM">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading={!isEdit ? 'Create a new store' : 'Edit store'}
+          heading="Store Detail"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            {
-              name: 'Store',
-              href: PATH_DASHBOARD.store.root
-            },
-            { name: !isEdit ? 'New product' : 'Update Store' }
+            { name: 'Store', href: PATH_DASHBOARD.store.list },
+            { name: 'Detail' }
           ]}
         />
-
-        <StoreNewForm isEdit={isEdit} currentStore={currentStore} />
+        <StoreDetailForm currentStore={currentStore} />
       </Container>
     </Page>
   );

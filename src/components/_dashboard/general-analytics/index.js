@@ -1,6 +1,6 @@
-export { default as AnalyticsBugReports } from './AnalyticsBugReports';
+export { default as AnalyticsIssues } from './AnalyticsIssues';
 export { default as AnalyticsCurrentVisits } from './AnalyticsCurrentVisits';
-export { default as AnalyticsItemOrders } from './AnalyticsItemOrders';
-export { default as AnalyticsNewUsers } from './AnalyticsNewUsers';
+export { default as AnalyticsEmployee } from './AnalyticsEmployee';
+export { default as AnalyticsWater } from './AnalyticsWater';
 export { default as AnalyticsWebsiteVisits } from './AnalyticsWebsiteVisits';
-export { default as AnalyticsWeeklySales } from './AnalyticsWeeklySales';
+export { default as AnalyticsElectric } from './AnalyticsElectric';

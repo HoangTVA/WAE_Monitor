@@ -212,7 +212,6 @@ export default function StoreList() {
                         <TableCell align="left">{brandId}</TableCell>
                         <TableCell align="left">{sName}</TableCell>
                         <TableCell align="left">{sAddress}</TableCell>
-
                         <TableCell align="right">
                           <StoreMoreMenu onDelete={() => handleDeleteStore(id)} storeId={id} />
                         </TableCell>

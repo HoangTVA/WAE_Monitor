@@ -24,7 +24,7 @@ export default function BrandCreate() {
   const { brandId } = useParams();
   const { brandList } = useSelector((state) => state.brand);
   const isEdit = pathname.includes('edit');
-  const currentBrand = brandList.find((brand) => brand.brandId === brandId);
+  const currentBrand = brandList.find((brand) => brand.id.toString() === brandId);
 
   useEffect(() => {
     dispatch(getBrandList());
@@ -41,7 +41,6 @@ export default function BrandCreate() {
             { name: !isEdit ? 'New brand' : 'Update brand' }
           ]}
         />
-
         <BrandNewForm isEdit={isEdit} currentBrand={currentBrand} />
       </Container>
     </Page>
