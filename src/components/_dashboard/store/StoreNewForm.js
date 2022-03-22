@@ -38,8 +38,7 @@ export default function StoreNewForm({ isEdit, currentStore }) {
 
   const NewStoreSchema = Yup.object().shape({
     sName: Yup.string().required('Name is required'),
-    sAddress: Yup.string().required('Address is required'),
-    brandId: currentBrand[0].id
+    sAddress: Yup.string().required('Address is required')
   });
 
   const formik = useFormik({
@@ -47,7 +46,7 @@ export default function StoreNewForm({ isEdit, currentStore }) {
     initialValues: {
       sName: currentStore?.sName || '',
       sAddress: currentStore?.sAddress || '',
-      brandId: currentStore?.brandId || ''
+      brandId: currentBrand[0].id
     },
     validationSchema: NewStoreSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
