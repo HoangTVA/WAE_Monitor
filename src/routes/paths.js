@@ -69,6 +69,13 @@ export const PATH_DASHBOARD = {
     newDevice: path(ROOTS_DASHBOARD, '/device/new')
     // editById: path(ROOTS_DASHBOARD, '/device/:deviceId/edit')
     // detail: path(ROOTS_DASHBOARD, '/device/:deviceId/detail')
+  },
+  meter: {
+    root: path(ROOTS_DASHBOARD, '/meter'),
+    list: path(ROOTS_DASHBOARD, '/meter/list'),
+    newMeter: path(ROOTS_DASHBOARD, '/meter/new')
+    // editById: path(ROOTS_DASHBOARD, '/device/:deviceId/edit')
+    // detail: path(ROOTS_DASHBOARD, '/device/:deviceId/detail')
   }
 };
 

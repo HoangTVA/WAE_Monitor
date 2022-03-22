@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import { useParams, useLocation } from 'react-router-dom';
 // material
-import { Container } from '@material-ui/core';
+import { Container, Card, Box, CardHeader, Button } from '@material-ui/core';
 // redux
+import { Chart } from 'react-google-charts';
+import axios from 'axios';
+import Datetime from 'react-datetime';
+import DatePickerComponent from '../../components/_dashboard/chart/YearPicker';
 import { useDispatch, useSelector } from '../../redux/store';
 import { getStoreList } from '../../redux/slices/store';
 // routes
@@ -14,7 +18,6 @@ import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import StoreDetailForm from '../../components/_dashboard/store/StoreDetailForm';
-
 // ----------------------------------------------------------------------
 
 export default function StoreCreate() {
@@ -23,10 +26,28 @@ export default function StoreCreate() {
   const { storeId } = useParams();
   const { storeList } = useSelector((state) => state.store);
   const currentStore = storeList.find((store) => store.id.toString() === storeId);
+  const [chartData, setChartData] = useState(['Month', 'Electricity', 'Water']);
+  const [year, setYear] = useState(2022);
+
+  const handleGetChartData = () => {
+    try {
+      const response = axios
+        .get('/stores/report', {
+          params: { storeId: currentStore.id, year }
+        })
+        .then((res) => setChartData(res.data));
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const openCalendar = () => <DatePickerComponent />;
 
   useEffect(() => {
+    handleGetChartData();
     dispatch(getStoreList());
-  }, [dispatch]);
+  }, [dispatch, year]);
 
   return (
     <Page title="Store: Detail | WAEM">
@@ -40,6 +61,16 @@ export default function StoreCreate() {
           ]}
         />
         <StoreDetailForm currentStore={currentStore} />
+        <Card>
+          <CardHeader title="Total Store Usage" subheader={currentStore.sName} />
+          <Datetime dateFormat="YYYY" onChange={(date) => setYear(date.year())} />
+          {/* <Button variant="outlined" onClick={openCalendar}>
+            {year}
+          </Button> */}
+          <Box sx={{ p: 2, pb: 1 }} dir="ltr">
+            <Chart chartType="Line" data={chartData} height="364px" />
+          </Box>
+        </Card>
       </Container>
     </Page>
   );
