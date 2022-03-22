@@ -1,11 +1,12 @@
 import { Icon } from '@iconify/react';
+import { useEffect, useState } from 'react';
 import userOutlined from '@iconify/icons-ant-design/user-outlined';
 // material
 import { alpha, styled } from '@material-ui/core/styles';
 import { Card, Typography } from '@material-ui/core';
 // utils
+import axios from 'axios';
 import { fShortenNumber } from '../../../utils/formatNumber';
-
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
@@ -34,15 +35,26 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 1723315;
-
 export default function AnalyticsEmployee() {
+  const [empCount, setEmpCount] = useState(0);
+  const handleGetEmpCount = () => {
+    try {
+      const response = axios.get('/employees/brand').then((res) => setEmpCount(res.data.length));
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    handleGetEmpCount();
+  }, [empCount]);
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon={userOutlined} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
+      <Typography variant="h3">{fShortenNumber(empCount)}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Employees
       </Typography>
