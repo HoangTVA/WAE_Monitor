@@ -1,11 +1,12 @@
 import { Icon } from '@iconify/react';
+import { useEffect, useState } from 'react';
 import electricFilled from '@iconify/icons-ant-design/bulb-outlined';
 // material
 import { alpha, styled } from '@material-ui/core/styles';
 import { Card, Typography } from '@material-ui/core';
 // utils
+import axios from 'axios';
 import { fShortenNumber } from '../../../utils/formatNumber';
-
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
@@ -37,6 +38,18 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 const TOTAL = 714000;
 
 export default function AnalyticsElectric() {
+  // const handleGetElecConsumptionData = () => {
+  //   try {
+  //     const response = axios
+  //       .get('/stores/report', {
+  //         params: { storeId: currentStore.id, year }
+  //       })
+  //       .then((res) => setChartData(res.data));
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   return (
     <RootStyle>
       <IconWrapperStyle>
