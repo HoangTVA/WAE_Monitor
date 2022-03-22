@@ -30,7 +30,7 @@ export default function EmployeeNewForm({ currentEmployee }) {
   const dispatch = useDispatch();
   const { storeList } = useSelector((state) => state.store);
   const currentStore = storeList.filter((store) => store.brandId === currentEmployee.workAt);
-  console.log(currentStore);
+  console.log(currentStore[0].id);
 
   useEffect(() => {
     dispatch(getStoreList());
@@ -39,7 +39,8 @@ export default function EmployeeNewForm({ currentEmployee }) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      eId: currentEmployee?.id
+      eId: currentEmployee?.id,
+      sId: currentStore[0].id
     },
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
       try {
@@ -81,8 +82,6 @@ export default function EmployeeNewForm({ currentEmployee }) {
                     {currentStore.map((store) => (
                       <option key={store.id} value={store.id}>
                         {store.id}
-                        {console.log(values.sId)}
-                        {console.log(store.id)}
                       </option>
                     ))}
                   </Select>

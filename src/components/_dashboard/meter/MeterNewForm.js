@@ -35,6 +35,8 @@ export default function MeterNewForm() {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const { storeList } = useSelector((state) => state.store);
+  const currentStore = storeList.filter((store) => store.id);
+  console.log(currentStore[0].id);
 
   useEffect(() => {
     dispatch(getStoreList());
@@ -50,6 +52,7 @@ export default function MeterNewForm() {
     enableReinitialize: true,
     initialValues: {
       mName: '',
+      sLocation: currentStore[0].id,
       mType: false,
       mStatus: true
     },
