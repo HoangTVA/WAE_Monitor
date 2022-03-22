@@ -39,8 +39,7 @@ export default function EmployeeNewForm({ currentEmployee }) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      eId: currentEmployee?.id,
-      sId: currentEmployee?.brandId
+      eId: currentEmployee?.id
     },
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
       try {
@@ -64,15 +63,13 @@ export default function EmployeeNewForm({ currentEmployee }) {
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <Stack spacing={3}>
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" {...getFieldProps('eId')} value={values.eId}>
                 <Typography
                   component="span"
                   variant="body1"
                   sx={{
                     color: 'text.disabled'
                   }}
-                  {...getFieldProps('eId')}
-                  value={currentEmployee?.id}
                 >
                   Chosen Employee:&nbsp;
                 </Typography>
@@ -84,6 +81,8 @@ export default function EmployeeNewForm({ currentEmployee }) {
                     {currentStore.map((store) => (
                       <option key={store.id} value={store.id}>
                         {store.id}
+                        {console.log(values.sId)}
+                        {console.log(store.id)}
                       </option>
                     ))}
                   </Select>
