@@ -29,6 +29,8 @@ export default function StoreNewForm({ isEdit, currentStore }) {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const { brandList } = useSelector((state) => state.brand);
+  const currentBrand = brandList.filter((brand) => brand.id);
+  console.log(currentBrand[0].id);
 
   useEffect(() => {
     dispatch(getBrandList());
@@ -36,7 +38,8 @@ export default function StoreNewForm({ isEdit, currentStore }) {
 
   const NewStoreSchema = Yup.object().shape({
     sName: Yup.string().required('Name is required'),
-    sAddress: Yup.string().required('Address is required')
+    sAddress: Yup.string().required('Address is required'),
+    brandId: currentBrand[0].id
   });
 
   const formik = useFormik({

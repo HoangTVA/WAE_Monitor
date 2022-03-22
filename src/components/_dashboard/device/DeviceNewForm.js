@@ -37,6 +37,10 @@ export default function DeviceNewForm() {
   const dispatch = useDispatch();
   const { meterList } = useSelector((state) => state.meter);
   const { dtypeList } = useSelector((state) => state.dType);
+  const currentMeter = meterList.filter((meter) => meter.id);
+  console.log(currentMeter[0].id);
+  const currentType = dtypeList.filter((dType) => dType.id);
+  console.log(currentType[0].id);
 
   useEffect(() => {
     dispatch(getMeterList());
@@ -58,6 +62,8 @@ export default function DeviceNewForm() {
     enableReinitialize: true,
     initialValues: {
       dName: '',
+      dType: currentType[0].id,
+      meter: currentMeter[0].id,
       isSample: false,
       dStatus: true
     },

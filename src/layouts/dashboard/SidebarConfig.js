@@ -17,7 +17,8 @@ const ICONS = {
   dashboard: getIcon('ic_dashboard'),
   account: getIcon('ic_account'),
   brand: getIcon('ic_ecommerce'),
-  device: getIcon('ic_clock')
+  device: getIcon('ic_clock'),
+  meter: getIcon('ic_meter')
 };
 
 const sidebarConfig = [
@@ -47,6 +48,12 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.device.root,
         icon: ICONS.device,
         children: [{ title: 'list', path: PATH_DASHBOARD.device.list }]
+      },
+      {
+        title: 'Meter',
+        path: PATH_DASHBOARD.meter.root,
+        icon: ICONS.meter,
+        children: [{ title: 'list', path: PATH_DASHBOARD.meter.list }]
       },
       {
         title: 'Store',

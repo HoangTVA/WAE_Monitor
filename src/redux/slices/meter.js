@@ -41,7 +41,8 @@ const newMeterList = (res) => {
   console.log(res);
   const meterList = res.data.map((data) => {
     const meter = {
-      meterId: data.id
+      meterId: data.id,
+      meterName: data.mName
     };
     console.log(meter);
     return meter;
