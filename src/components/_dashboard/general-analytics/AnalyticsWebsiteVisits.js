@@ -1,8 +1,6 @@
-import { merge } from 'lodash';
-import ReactApexChart from 'react-apexcharts';
 // material
-import { Card, CardHeader, Box } from '@material-ui/core';
-import { StaticDatePicker } from '@material-ui/lab';
+import { Card, CardHeader, Box, TextField } from '@material-ui/core';
+import { DatePicker } from '@material-ui/lab';
 //
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
@@ -11,70 +9,47 @@ import { yearsToMonths } from 'date-fns';
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [
-  {
-    name: 'Team A',
-    type: 'column',
-    data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-  },
-  {
-    name: 'Team B',
-    type: 'area',
-    data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
-  },
-  {
-    name: 'Team C',
-    type: 'line',
-    data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
-  }
-];
-
 export default function AnalyticsWebsiteVisits() {
-  const chartOptions = merge(BaseOptionChart(), {
-    stroke: { width: [0, 2, 3] },
-    plotOptions: { bar: { columnWidth: '11%', borderRadius: 4 } },
-    fill: { type: ['solid', 'gradient', 'solid'] },
-    labels: [
-      '01/01/2003',
-      '02/01/2003',
-      '03/01/2003',
-      '04/01/2003',
-      '05/01/2003',
-      '06/01/2003',
-      '07/01/2003',
-      '08/01/2003',
-      '09/01/2003',
-      '10/01/2003',
-      '11/01/2003'
-    ],
-    xaxis: { type: 'datetime' },
-    tooltip: {
-      shared: true,
-      intersect: false,
-      y: {
-        formatter: (y) => {
-          if (typeof y !== 'undefined') {
-            return `${y.toFixed(0)} visits`;
-          }
-          return y;
-        }
-      }
+  const [chartData, setChartData] = useState(['Month', 'Electricity', 'Water']);
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [value, setValue] = useState(new Date());
+
+  const handleGetChartData = () => {
+    try {
+      const response = axios
+        .get('/brands/report/all', {
+          params: { year }
+        })
+        .then((res) => setChartData(res.data));
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
     }
-  });
+  };
+
+  useEffect(() => {
+    handleGetChartData();
+  }, [year]);
 
   return (
     <Card>
       <CardHeader title="Total Usage" subheader="" />
-      <StaticDatePicker
-        displayStaticWrapperAs="desktop"
-        openTo="year"
-        value={year}
+
+      <DatePicker
+        label="Select Year:"
+        readOnly
+        views={['year']}
+        value={value}
+        TextFieldComponent={() => null}
         onChange={(newValue) => {
-          setYear(newValue);
+          setYear(newValue.getFullYear());
+          setValue(newValue);
         }}
+        renderInput={(params) => <TextField {...params} />}
       />
+
       <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-        <ReactApexChart type="line" series={CHART_DATA} options={chartOptions} height={364} />
+        <Chart chartType="Bar" data={chartData} height="364px" />
       </Box>
     </Card>
   );
