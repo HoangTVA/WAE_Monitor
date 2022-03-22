@@ -29,8 +29,6 @@ export default function EmployeeNewForm({ isEdit, currentEmployee }) {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const { brandList } = useSelector((state) => state.brand);
-  const currentBrand = brandList.filter((brand) => brand.id);
-  console.log(currentBrand[0].id);
 
   useEffect(() => {
     dispatch(getBrandList());
@@ -47,7 +45,7 @@ export default function EmployeeNewForm({ isEdit, currentEmployee }) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      workAt: currentBrand[0].id,
+      // workAt: brandList[0].id,
       eName: currentEmployee?.eName || '',
       ePhone: currentEmployee?.ePhone || '',
       dob: currentEmployee?.dob || '',

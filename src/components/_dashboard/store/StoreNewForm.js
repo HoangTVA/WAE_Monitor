@@ -29,8 +29,6 @@ export default function StoreNewForm({ isEdit, currentStore }) {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const { brandList } = useSelector((state) => state.brand);
-  const currentBrand = brandList.filter((brand) => brand.id);
-  console.log(currentBrand[0].id);
 
   useEffect(() => {
     dispatch(getBrandList());
@@ -45,8 +43,8 @@ export default function StoreNewForm({ isEdit, currentStore }) {
     enableReinitialize: true,
     initialValues: {
       sName: currentStore?.sName || '',
-      sAddress: currentStore?.sAddress || '',
-      brandId: currentBrand[0].id
+      sAddress: currentStore?.sAddress || ''
+      // brandId: brandList[0].id
     },
     validationSchema: NewStoreSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
