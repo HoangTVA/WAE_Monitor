@@ -1,6 +1,6 @@
 // material
-import { Card, CardHeader, Box } from '@material-ui/core';
-import { StaticDatePicker } from '@material-ui/lab';
+import { Card, CardHeader, Box, TextField } from '@material-ui/core';
+import { DatePicker } from '@material-ui/lab';
 //
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
@@ -11,7 +11,8 @@ import { yearsToMonths } from 'date-fns';
 
 export default function AnalyticsWebsiteVisits() {
   const [chartData, setChartData] = useState(['Month', 'Electricity', 'Water']);
-  const [year, setYear] = useState(2022);
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [value, setValue] = useState(new Date());
 
   const handleGetChartData = () => {
     try {
@@ -33,14 +34,20 @@ export default function AnalyticsWebsiteVisits() {
   return (
     <Card>
       <CardHeader title="Total Usage" subheader="" />
-      <StaticDatePicker
-        displayStaticWrapperAs="desktop"
-        openTo="year"
-        value={year}
+
+      <DatePicker
+        label="Select Year:"
+        readOnly
+        views={['year']}
+        value={value}
+        TextFieldComponent={() => null}
         onChange={(newValue) => {
-          setYear(newValue);
+          setYear(newValue.getFullYear());
+          setValue(newValue);
         }}
+        renderInput={(params) => <TextField {...params} />}
       />
+
       <Box sx={{ p: 3, pb: 1 }} dir="ltr">
         <Chart chartType="Bar" data={chartData} height="364px" />
       </Box>

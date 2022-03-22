@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import { useParams, useLocation } from 'react-router-dom';
 // material
-import { Container, Card, Box, CardHeader, Button } from '@material-ui/core';
+import { Container, Card, Box, CardHeader, Button, TextField } from '@material-ui/core';
 // redux
 import { Chart } from 'react-google-charts';
+import { DatePicker } from '@material-ui/lab';
 import axios from 'axios';
-import Datetime from 'react-datetime';
-import DatePickerComponent from '../../components/_dashboard/chart/YearPicker';
 import { useDispatch, useSelector } from '../../redux/store';
 import { getStoreList } from '../../redux/slices/store';
 // routes
@@ -27,7 +26,8 @@ export default function StoreCreate() {
   const { storeList } = useSelector((state) => state.store);
   const currentStore = storeList.find((store) => store.id.toString() === storeId);
   const [chartData, setChartData] = useState(['Month', 'Electricity', 'Water']);
-  const [year, setYear] = useState(2022);
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [value, setValue] = useState(new Date());
 
   const handleGetChartData = () => {
     try {
@@ -41,8 +41,6 @@ export default function StoreCreate() {
       console.error(error);
     }
   };
-
-  const openCalendar = () => <DatePickerComponent />;
 
   useEffect(() => {
     handleGetChartData();
@@ -63,10 +61,18 @@ export default function StoreCreate() {
         <StoreDetailForm currentStore={currentStore} />
         <Card>
           <CardHeader title="Total Store Usage" subheader={currentStore.sName} />
-          <Datetime dateFormat="YYYY" onChange={(date) => setYear(date.year())} />
-          {/* <Button variant="outlined" onClick={openCalendar}>
-            {year}
-          </Button> */}
+          <DatePicker
+            label="Select Year:"
+            readOnly
+            views={['year']}
+            value={value}
+            TextFieldComponent={() => null}
+            onChange={(newValue) => {
+              setYear(newValue.getFullYear());
+              setValue(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
           <Box sx={{ p: 2, pb: 1 }} dir="ltr">
             <Chart chartType="Line" data={chartData} height="364px" />
           </Box>
