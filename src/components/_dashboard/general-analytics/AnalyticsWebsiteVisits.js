@@ -37,7 +37,6 @@ export default function AnalyticsWebsiteVisits() {
 
       <DatePicker
         label="Select Year:"
-        readOnly
         views={['year']}
         value={value}
         TextFieldComponent={() => null}

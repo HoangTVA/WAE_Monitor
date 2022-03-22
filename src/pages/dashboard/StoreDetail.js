@@ -63,7 +63,6 @@ export default function StoreCreate() {
           <CardHeader title="Total Store Usage" subheader={currentStore.sName} />
           <DatePicker
             label="Select Year:"
-            readOnly
             views={['year']}
             value={value}
             TextFieldComponent={() => null}
