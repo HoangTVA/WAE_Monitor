@@ -38,12 +38,8 @@ export default function GeneralAnalytics() {
             <AnalyticsIssues />
           </Grid>
 
-          <Grid item xs={12} md={6} lg={8}>
+          <Grid item xs={12} md={12} lg={12}>
             <AnalyticsWebsiteVisits />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsCurrentVisits />
           </Grid>
         </Grid>
       </Container>
