@@ -41,7 +41,8 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/employee'),
     list: path(ROOTS_DASHBOARD, '/employee/list'),
     newEmployee: path(ROOTS_DASHBOARD, '/employee/new'),
-    editById: path(ROOTS_DASHBOARD, '/employee/:employeeId/edit')
+    editById: path(ROOTS_DASHBOARD, '/employee/:employeeId/edit'),
+    assignById: path(ROOTS_DASHBOARD, '/employee/:employeeId/assign')
   },
   brand: {
     root: path(ROOTS_DASHBOARD, '/brand'),
@@ -67,6 +68,12 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/device'),
     list: path(ROOTS_DASHBOARD, '/device/list'),
     newDevice: path(ROOTS_DASHBOARD, '/device/new')
+    // detail: path(ROOTS_DASHBOARD, '/device/:deviceId/detail')
+  },
+  meter: {
+    root: path(ROOTS_DASHBOARD, '/meter'),
+    list: path(ROOTS_DASHBOARD, '/meter/list'),
+    newMeter: path(ROOTS_DASHBOARD, '/meter/new')
     // editById: path(ROOTS_DASHBOARD, '/device/:deviceId/edit')
     // detail: path(ROOTS_DASHBOARD, '/device/:deviceId/detail')
   }

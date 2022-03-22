@@ -87,7 +87,8 @@ export default function Router() {
             { path: '/', element: <Navigate to="/dashboard/employee/list" replace /> },
             { path: 'list', element: <EmployeeList /> },
             { path: 'new', element: <EmployeeCreate /> },
-            { path: '/:employeeId/edit', element: <EmployeeCreate /> }
+            { path: '/:employeeId/edit', element: <EmployeeCreate /> },
+            { path: '/:employeeId/assign', element: <EmployeeAssign /> }
           ]
         },
         {
@@ -116,6 +117,14 @@ export default function Router() {
             { path: '/', element: <Navigate to="/dashboard/device/list" replace /> },
             { path: 'list', element: <DeviceList /> },
             { path: 'new', element: <DeviceCreate /> }
+          ]
+        },
+        {
+          path: 'meter',
+          children: [
+            { path: '/', element: <Navigate to="/dashboard/meter/list" replace /> },
+            { path: 'list', element: <MeterList /> },
+            { path: 'new', element: <MeterCreate /> }
           ]
         },
         {
@@ -223,6 +232,7 @@ const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralA
 
 const EmployeeList = Loadable(lazy(() => import('../pages/dashboard/EmployeeList')));
 const EmployeeCreate = Loadable(lazy(() => import('../pages/dashboard/EmployeeCreate')));
+const EmployeeAssign = Loadable(lazy(() => import('../pages/dashboard/EmployeeAssign')));
 
 const BrandList = Loadable(lazy(() => import('../pages/dashboard/BrandList')));
 const BrandCreate = Loadable(lazy(() => import('../pages/dashboard/BrandCreate')));
@@ -234,6 +244,9 @@ const StoreDetail = Loadable(lazy(() => import('../pages/dashboard/StoreDetail')
 
 const DeviceList = Loadable(lazy(() => import('../pages/dashboard/DeviceList')));
 const DeviceCreate = Loadable(lazy(() => import('../pages/dashboard/DeviceCreate')));
+
+const MeterList = Loadable(lazy(() => import('../pages/dashboard/MeterList')));
+const MeterCreate = Loadable(lazy(() => import('../pages/dashboard/MeterCreate')));
 
 const MeasurementTable = Loadable(lazy(() => import('../pages/dashboard/MeasurementTable')));
 const MeasurementListTable = Loadable(lazy(() => import('../pages/dashboard/MeasurementListTable')));
