@@ -58,8 +58,8 @@ export default function DeviceNewForm() {
     enableReinitialize: true,
     initialValues: {
       dName: '',
-      // dType: meterList[0].id,
-      // meter: dtypeList[0].id,
+      meter: meterList[0].id,
+      dType: dtypeList[0].id,
       isSample: false,
       dStatus: true
     },

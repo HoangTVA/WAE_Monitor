@@ -50,7 +50,7 @@ export default function MeterNewForm() {
     enableReinitialize: true,
     initialValues: {
       mName: '',
-      // sLocation: storeList[0].id,
+      sLocation: storeList[0].id,
       mType: false,
       mStatus: true
     },
