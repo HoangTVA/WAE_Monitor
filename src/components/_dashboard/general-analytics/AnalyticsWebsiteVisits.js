@@ -2,8 +2,12 @@ import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 // material
 import { Card, CardHeader, Box } from '@material-ui/core';
+import { StaticDatePicker } from '@material-ui/lab';
 //
-import { BaseOptionChart } from '../../charts';
+import { Chart } from 'react-google-charts';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { yearsToMonths } from 'date-fns';
 
 // ----------------------------------------------------------------------
 
@@ -60,7 +64,15 @@ export default function AnalyticsWebsiteVisits() {
 
   return (
     <Card>
-      <CardHeader title="Website Visits" subheader="(+43%) than last year" />
+      <CardHeader title="Total Usage" subheader="" />
+      <StaticDatePicker
+        displayStaticWrapperAs="desktop"
+        openTo="year"
+        value={year}
+        onChange={(newValue) => {
+          setYear(newValue);
+        }}
+      />
       <Box sx={{ p: 3, pb: 1 }} dir="ltr">
         <ReactApexChart type="line" series={CHART_DATA} options={chartOptions} height={364} />
       </Box>
