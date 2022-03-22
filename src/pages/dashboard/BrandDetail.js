@@ -29,9 +29,13 @@ export default function BrandCreate() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [value, setValue] = useState(new Date());
   const [chartData, setChartData] = useState(['Month', 'Electricity', 'Water']);
+  const [elecPieChartData, setElecPieChartData] = useState(['Store', 'Electricity']);
+  const [waterPieChartData, setWaterPieChartData] = useState(['Store', 'Water']);
 
   useEffect(() => {
     handleGetChartData();
+    handleGetElecChartData();
+    handleGetWaterChartData();
     dispatch(getBrandList());
   }, [dispatch, year]);
 
@@ -42,6 +46,32 @@ export default function BrandCreate() {
           params: { Bid: currentBrand.id, year }
         })
         .then((res) => setChartData(res.data));
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleGetElecChartData = () => {
+    try {
+      const response = axios
+        .get('/brands/store/electric', {
+          params: { BrandId: currentBrand.id, year }
+        })
+        .then((res) => setElecPieChartData(res.data));
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleGetWaterChartData = () => {
+    try {
+      const response = axios
+        .get('/brands/store/water', {
+          params: { BrandId: currentBrand.id, year }
+        })
+        .then((res) => setWaterPieChartData(res.data));
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -64,7 +94,6 @@ export default function BrandCreate() {
           <CardHeader title="Total Brand Usage" subheader={currentBrand.name} />
           <DatePicker
             label="Select Year:"
-            readOnly
             views={['year']}
             value={value}
             TextFieldComponent={() => null}
@@ -77,6 +106,18 @@ export default function BrandCreate() {
           <Box sx={{ p: 2, pb: 1 }} dir="ltr">
             <Chart chartType="Bar" data={chartData} height="364px" />
           </Box>
+          <Card>
+            <CardHeader title="Electricity Usage Distribution" subheader={currentBrand.name} />
+            <Box sx={{ p: 2, pb: 1 }} dir="ltr">
+              <Chart chartType="PieChart" data={elecPieChartData} height="364px" />
+            </Box>
+          </Card>
+          <Card>
+            <CardHeader title="Water Usage Distribution" subheader={currentBrand.name} />
+            <Box sx={{ p: 2, pb: 1 }} dir="ltr">
+              <Chart chartType="PieChart" data={waterPieChartData} height="364px" />
+            </Box>
+          </Card>
         </Card>
       </Container>
     </Page>
