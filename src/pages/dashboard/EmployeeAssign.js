@@ -31,7 +31,7 @@ export default function EmployeeCreate() {
     <Page title="Employee: Assign employee to store| WAEM">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Assign employee"
+          heading="Assign employee to a store"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {

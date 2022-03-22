@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 // material
 import { LoadingButton } from '@material-ui/lab';
-import { Box, Grid, Stack, Select, TextField, FormControl } from '@material-ui/core';
+import { Box, Grid, Stack, Select, Typography, FormControl } from '@material-ui/core';
 // utils
 import axios from '../../../utils/axios';
 import { getStoreList } from '../../../redux/slices/store';
@@ -39,7 +39,8 @@ export default function EmployeeNewForm({ currentEmployee }) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      workAt: currentEmployee?.workAt || ''
+      eId: currentEmployee?.id,
+      sId: currentEmployee?.brandId
     },
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
       try {
@@ -57,13 +58,26 @@ export default function EmployeeNewForm({ currentEmployee }) {
   });
 
   const { values, handleSubmit, isSubmitting, getFieldProps } = formik;
-
   return (
     <FormikProvider value={formik}>
       <Form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <Stack spacing={3}>
+              <Typography variant="subtitle1">
+                <Typography
+                  component="span"
+                  variant="body1"
+                  sx={{
+                    color: 'text.disabled'
+                  }}
+                  {...getFieldProps('eId')}
+                  value={currentEmployee?.id}
+                >
+                  Chosen Employee:&nbsp;
+                </Typography>
+                {currentEmployee?.id}
+              </Typography>
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }}>
                 <FormControl fullWidth>
                   <Select native {...getFieldProps('sId')} value={values.sId}>
