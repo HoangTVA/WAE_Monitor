@@ -6,6 +6,9 @@ import brandReducer from './slices/brand';
 import storeReducer from './slices/store';
 import employeeReducer from './slices/employee';
 import measurementReducer from './slices/measurement';
+import deviceReducer from './slices/device';
+import dtypeReducer from './slices/dtype';
+import meterReducer from './slices/meter';
 
 // ----------------------------------------------------------------------
 
@@ -20,7 +23,10 @@ const rootReducer = combineReducers({
   brand: brandReducer,
   store: storeReducer,
   employee: employeeReducer,
-  measurement: measurementReducer
+  measurement: measurementReducer,
+  device: deviceReducer,
+  dType: dtypeReducer,
+  meter: meterReducer
 });
 
 export { rootPersistConfig, rootReducer };

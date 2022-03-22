@@ -69,7 +69,7 @@ function applySortFilter(array, comparator, searchQuery) {
     return a[1] - b[1];
   });
   if (searchQuery) {
-    return filter(array, (_store) => _store.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
+    return filter(array, (_store) => _store.sName.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }

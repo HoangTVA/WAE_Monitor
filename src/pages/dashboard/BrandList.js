@@ -69,7 +69,7 @@ function applySortFilter(array, comparator, searchQuery) {
     return a[1] - b[1];
   });
   if (searchQuery) {
-    return filter(array, (_brand) => _brand.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
+    return filter(array, (_brand) => _brand.brandName.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }
@@ -81,7 +81,7 @@ export default function BrandList() {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
-  const [orderBy, setOrderBy] = useState('name');
+  const [orderBy, setOrderBy] = useState('brandName');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
 

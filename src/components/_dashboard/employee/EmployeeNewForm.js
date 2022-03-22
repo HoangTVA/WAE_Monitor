@@ -125,7 +125,7 @@ export default function EmployeeNewForm({ isEdit, currentEmployee }) {
             </Stack>
             <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {!isEdit ? 'Create Brand' : 'Save Changes'}
+                {!isEdit ? 'Create Employee' : 'Save Changes'}
               </LoadingButton>
             </Box>
           </Grid>

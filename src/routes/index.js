@@ -111,6 +111,14 @@ export default function Router() {
           ]
         },
         {
+          path: 'device',
+          children: [
+            { path: '/', element: <Navigate to="/dashboard/device/list" replace /> },
+            { path: 'list', element: <DeviceList /> },
+            { path: 'new', element: <DeviceCreate /> }
+          ]
+        },
+        {
           path: 'measurement',
           children: [
             { path: '/', element: <Navigate to="/dashboard/measurement/table" replace /> },
@@ -223,6 +231,9 @@ const BrandDetail = Loadable(lazy(() => import('../pages/dashboard/BrandDetail')
 const StoreList = Loadable(lazy(() => import('../pages/dashboard/StoreList')));
 const StoreCreate = Loadable(lazy(() => import('../pages/dashboard/StoreCreate')));
 const StoreDetail = Loadable(lazy(() => import('../pages/dashboard/StoreDetail')));
+
+const DeviceList = Loadable(lazy(() => import('../pages/dashboard/DeviceList')));
+const DeviceCreate = Loadable(lazy(() => import('../pages/dashboard/DeviceCreate')));
 
 const MeasurementTable = Loadable(lazy(() => import('../pages/dashboard/MeasurementTable')));
 const MeasurementListTable = Loadable(lazy(() => import('../pages/dashboard/MeasurementListTable')));

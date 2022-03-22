@@ -62,6 +62,13 @@ export const PATH_DASHBOARD = {
     table: path(ROOTS_DASHBOARD, '/measurement/table'),
     list: path(ROOTS_DASHBOARD, '/measurement/list')
     // measurementById: path(ROOTS_DASHBOARD, '/measurement/:id')
+  },
+  device: {
+    root: path(ROOTS_DASHBOARD, '/device'),
+    list: path(ROOTS_DASHBOARD, '/device/list'),
+    newDevice: path(ROOTS_DASHBOARD, '/device/new')
+    // editById: path(ROOTS_DASHBOARD, '/device/:deviceId/edit')
+    // detail: path(ROOTS_DASHBOARD, '/device/:deviceId/detail')
   }
 };
 
