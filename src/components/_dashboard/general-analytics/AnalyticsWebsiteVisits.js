@@ -1,10 +1,11 @@
 // material
 import { Card, CardHeader, Box } from '@material-ui/core';
-import { DatePicker } from '@material-ui/lab';
+import { StaticDatePicker } from '@material-ui/lab';
 //
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { yearsToMonths } from 'date-fns';
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +33,14 @@ export default function AnalyticsWebsiteVisits() {
   return (
     <Card>
       <CardHeader title="Total Usage" subheader="" />
-      <DatePicker views={['year']} label="Year only" onChange={(date) => setYear(date.year())} />
+      <StaticDatePicker
+        displayStaticWrapperAs="desktop"
+        openTo="year"
+        value={year}
+        onChange={(newValue) => {
+          setYear(newValue);
+        }}
+      />
       <Box sx={{ p: 3, pb: 1 }} dir="ltr">
         <Chart chartType="Bar" data={chartData} height="364px" />
       </Box>
