@@ -5,8 +5,6 @@ import { Grid, Stack, TextField } from '@material-ui/core';
 
 // ----------------------------------------------------------------------
 
-// ----------------------------------------------------------------------
-
 StoreDetailForm.propTypes = {
   isEdit: PropTypes.bool,
   currentStore: PropTypes.object
