@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 // material
 import { LoadingButton } from '@material-ui/lab';
-import { Box, Grid, Stack, Select, TextField, FormControl } from '@material-ui/core';
+import { Box, Grid, Stack, Select, TextField, FormControl, InputLabel } from '@material-ui/core';
 // utils
 import axios from '../../../utils/axios';
 import { getBrandList } from '../../../redux/slices/brand';
@@ -95,7 +95,7 @@ export default function StoreNewForm({ isEdit, currentStore }) {
                   <Select native {...getFieldProps('brandId')} value={values.brandId}>
                     {brandList.map((brand) => (
                       <option key={brand.id} value={brand.id}>
-                        {brand.id}
+                        {`${brand.id} ${brand.brandName}`}
                       </option>
                     ))}
                   </Select>

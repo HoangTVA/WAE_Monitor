@@ -96,6 +96,7 @@ export default function EmployeeNewForm({ isEdit, currentEmployee }) {
                 />
                 <TextField
                   fullWidth
+                  placeholder="yyyy-mm-dd"
                   label="Employee Date Of Birth"
                   {...getFieldProps('dob')}
                   error={Boolean(touched.dob && errors.dob)}
@@ -115,7 +116,7 @@ export default function EmployeeNewForm({ isEdit, currentEmployee }) {
                     <Select native {...getFieldProps('workAt')} value={values.workAt}>
                       {brandList.map((brand) => (
                         <option key={brand.id} value={brand.id}>
-                          {brand.id}
+                          {`${brand.id} ${brand.brandName}`}
                         </option>
                       ))}
                     </Select>
