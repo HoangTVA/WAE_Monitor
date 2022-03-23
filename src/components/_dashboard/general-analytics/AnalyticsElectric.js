@@ -38,26 +38,25 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 const TOTAL = 714000;
 
 export default function AnalyticsElectric() {
-  // const handleGetElecConsumptionData = () => {
-  //   try {
-  //     const response = axios
-  //       .get('/stores/report', {
-  //         params: { storeId: currentStore.id, year }
-  //       })
-  //       .then((res) => setChartData(res.data));
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const [brandCount, setBrandCount] = useState(0);
+  const handleGetBrandCount = () => {
+    try {
+      const response = axios.get('/brands').then((res) => setBrandCount(res.data.length));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    handleGetBrandCount();
+  }, [brandCount]);
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon={electricFilled} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
+      <Typography variant="h3">{fShortenNumber(brandCount)}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Electricity Consumption This Month
+        Brands
       </Typography>
     </RootStyle>
   );

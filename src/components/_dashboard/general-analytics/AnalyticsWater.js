@@ -1,9 +1,11 @@
 import { Icon } from '@iconify/react';
 import waterFilled from '@iconify/icons-ant-design/experiment-filled';
+import { useEffect, useState } from 'react';
 // material
 import { alpha, styled } from '@material-ui/core/styles';
 import { Card, Typography } from '@material-ui/core';
 // utils
+import axios from 'axios';
 import { fShortenNumber } from '../../../utils/formatNumber';
 
 // ----------------------------------------------------------------------
@@ -37,14 +39,25 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 const TOTAL = 1352831;
 
 export default function AnalyticsWater() {
+  const [storeCount, setStoreCount] = useState(0);
+  const handleGetStoreCount = () => {
+    try {
+      const response = axios.get('/stores').then((res) => setStoreCount(res.data.length));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    handleGetStoreCount();
+  }, [storeCount]);
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon={waterFilled} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
+      <Typography variant="h3">{fShortenNumber(storeCount)}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Water Consumption This Month
+        Stores
       </Typography>
     </RootStyle>
   );
